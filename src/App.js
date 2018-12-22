@@ -10,7 +10,17 @@ import { MuiPickersUtilsProvider } from 'material-ui-pickers';
 import { TimePicker } from 'material-ui-pickers';
 import { DatePicker } from 'material-ui-pickers';
 import { DateTimePicker } from 'material-ui-pickers';
+import styled from 'styled-components';
 
+const Title = styled.h1`
+font-size: 1.5em;
+text-align: center;
+color: palevioletred;
+`;
+const Wrapper = styled.section`
+padding: 4em;
+background: papayawhip;
+`;
 const data = {
 		labels: [
 			'Red',
@@ -36,6 +46,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+      <Wrapper>
+      <Title>Test de styled component!</Title>
+      </Wrapper>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <DatePicker  />
 
