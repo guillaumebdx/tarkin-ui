@@ -1,0 +1,18 @@
+.materialButton {
+	margin: 8px !important;
+}
+.plusButton {
+	background-color: #67b53f !important;
+	color:           white !important;
+}
+.deleteButton {
+	background-color: #e2e3e6 !important;
+}
+.editButton {
+	background-color: #3746ff !important;
+	color:            white !important;
+
+}
+.extendedButton {
+	background-color: #ff2 !important;
+}

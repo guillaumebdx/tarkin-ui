@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import './App.css';
-import Icon from '@material-ui/core/Icon';
-import ReactDOM from 'react-dom';
-import Button from '@material-ui/core/Button';
-import {Doughnut} from 'react-chartjs-2';
-import DateFnsUtils from '@date-io/date-fns';
+import React, { Component }        from 'react';
+import                                  './App.css';
+import PlusButton                  from './components/Buttons/PlusButton';
+import EditButton                  from './components/Buttons/EditButton';
+import ExtendedButton              from './components/Buttons/ExtendedButton';
+import {Doughnut}                  from 'react-chartjs-2';
+import DateFnsUtils                from '@date-io/date-fns';
 import { MuiPickersUtilsProvider } from 'material-ui-pickers';
-import { TimePicker } from 'material-ui-pickers';
-import { DatePicker } from 'material-ui-pickers';
-import { DateTimePicker } from 'material-ui-pickers';
-import styled from 'styled-components';
+import { TimePicker }              from 'material-ui-pickers';
+import { DatePicker }              from 'material-ui-pickers';
+import { DateTimePicker }          from 'material-ui-pickers';
+import styled                      from 'styled-components';
 
 const Title = styled.h1`
 font-size: 1.5em;
@@ -42,9 +42,18 @@ const data = {
 	};
 
 class App extends Component {
+
+
   render() {
+
+
     return (
       <div className="App">
+      <PlusButton context="plus1" />
+      <EditButton context="edit" />
+      <ExtendedButton context="extended1" label= "Bouton étendu" icon="home" />
+      <PlusButton context="plus2" />
+      <ExtendedButton context="extended2" label= "Bouton Propriété" icon="face" />
       <header className="App-header">
       </header>
       <Wrapper>
@@ -53,16 +62,14 @@ class App extends Component {
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <DatePicker  />
 
+
       <TimePicker  />
 
-      <DateTimePicker  />
+      <DateTimePicker />
     </MuiPickersUtilsProvider>
       
       <Doughnut data={data} />
-        <Icon>star</Icon>
-        <Button variant="contained" color="primary">
-        Hello World
-        </Button>
+
       </div>
     );
   }
