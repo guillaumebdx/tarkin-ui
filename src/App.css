@@ -1,3 +1,15 @@
+body {
+	 background: rgb(101,115,195) !important;
+}
 .MuiIcon-root-23 {
 	padding-right: 5px;
 }
+.MuiCardHeader-content-36 .MuiTypography-headline-44,.MuiCardHeader-content-36 .MuiTypography-body1-48, .MuiIconButton-label-79, .MuiCardContent-root-92 {
+	color: white;
+}
+
+.mainCard {
+	background-color: #221266 !important;
+	margin: 26px !important;
+}
+
