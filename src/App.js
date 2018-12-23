@@ -3,7 +3,7 @@ import                                  './App.css';
 import BottomBar                   from './components/Main/BottomBar';
 import MainCard                    from './components/Card/MainCard';
 import { Grid, Row, Col }          from 'react-flexbox-grid';	
-import {Doughnut}                  from 'react-chartjs-2';
+import {Doughnut, Radar}           from 'react-chartjs-2';
 const data = {
         labels: [
             'Immobilier',
@@ -33,6 +33,45 @@ const options = {
                 "fontColor": "rgb(255, 255, 255)"
               }
         },
+
+  };
+
+
+const dataRadar = {
+  labels: ['Succession', 'Fiscalité IR', 'Fiscalité IFI', 'Rentabilité CT', 'Rentabilité LT', 'Retraite',],
+  datasets: [
+    {
+      label: 'Mes priorités',
+      backgroundColor: 'rgba(255,99,132,0.2)',
+      borderColor: 'rgba(255,99,132,1)',
+      pointBackgroundColor: 'rgba(255,99,132,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(255,99,132,1)',
+      data: [74, 40, 60, 89, 96, 100],
+
+    }
+  ]
+};
+const optionsRadar = {
+        legend: {
+            display: false,
+        },
+
+        scale: {
+        	pointLabels:{
+        	       fontColor:"white",
+        	    },
+            reverse: false,
+            gridLines: {
+              color: [
+                'white',
+              ]
+            },
+            ticks: {
+              beginAtZero: true
+            }
+        }
   };
 
 
@@ -42,43 +81,44 @@ class App extends Component {
 	render() {
 	    return (
 	        <div className="App">
-	        <Grid>
-	            <Row around="md">
-	            <Col xs={12} md={6}>
-	        	<MainCard 
-	        		title =     "Patrimoine" 
-	        		subHeader = "Composition du patrimoine"
-	        		data =      <Doughnut data={data} options = {options} />
-	        		collapse =  "Détail de votre patrimoine financier :"
-	        	/>
-	        	</Col>
-	        	<Col xs={12} md={6}>
-	        	<MainCard 
-			        title =     "Profil financier" 
-			        subHeader = "Votre profil d'investisseur"
-			        collapse =  "Détail de votre profil financier :"
-			    />	
-	        	</Col>
-	        	<Col xs={12} md={6}>
-			    <MainCard 
-		        	title =     "Famille" 
-		        	subHeader = "Composition de la famille"
-		        	collapse =  "Détail de la composition :"
-		        />
-		       </Col>
-		       <Col xs={12} md={6}>
-		       <MainCard 
-			        title =     "Diversification" 
-			        subHeader = "Diversification de votre patrimoine"
-			        collapse =  "Détail de la diversification :"
-			    />
-			 </Col>
-			 </Row>
-		     </Grid>	
-		        
-		        <BottomBar />
-	        	
-	        </div>
+	        <div className="mainContainer">
+		        <Grid>
+		            <Row around="md">
+		            <Col xs={12} md={6}>
+		        	<MainCard 
+		        		title =     "Patrimoine" 
+		        		subHeader = "Composition du patrimoine"
+		        		data =      <Doughnut data={data} options = {options} />
+		        		collapse =  "Détail de votre patrimoine financier :"
+		        	/>
+		        	</Col>
+		        	<Col xs={12} md={6}>
+		        	<MainCard 
+				        title =     "Profil financier" 
+				        subHeader = "Votre profil d'investisseur"
+				        data      =  <Radar data={dataRadar} options= {optionsRadar} />
+				        collapse =  "Détail de votre profil financier :"
+				    />	
+		        	</Col>
+		        	<Col xs={12} md={6}>
+				    <MainCard 
+			        	title =     "Famille" 
+			        	subHeader = "Composition de la famille"
+			        	collapse =  "Détail de la composition :"
+			        />
+				       </Col>
+				       <Col xs={12} md={6}>
+				       <MainCard 
+					        title =     "Diversification" 
+					        subHeader = "Diversification de votre patrimoine"
+					        collapse =  "Détail de la diversification :"
+					    />
+					 </Col>
+					 </Row>
+				 </Grid>	
+			 </div>
+			 <BottomBar />
+			 </div>
 	    );
 	}
 }
