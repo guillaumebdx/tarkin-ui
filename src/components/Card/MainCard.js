@@ -14,10 +14,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 const styles = theme => ({
-  card: {
-    maxWidth: 400,
-    
-  },
+
   actions: {
     display: 'flex',
   },
