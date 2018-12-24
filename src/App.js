@@ -4,7 +4,27 @@ import BottomBar                   from './components/Main/BottomBar';
 import MainCard                    from './components/Card/MainCard';
 import { Grid, Row, Col }          from 'react-flexbox-grid';	
 import {Doughnut, Radar}           from 'react-chartjs-2';
-const data = {
+import OptionsRadar                from './const/OptionsRadar';
+import OptionsAsset                from './const/OptionsAsset';
+
+
+const DataRadar = {
+  labels: ['Succession', 'Fiscalité IR', 'Fiscalité IFI', 'Rentabilité CT', 'Rentabilité LT', 'Retraite',],
+  datasets: [
+    {
+      label: 'Mes priorités',
+      backgroundColor: 'rgba(255,99,132,0.2)',
+      borderColor: 'rgba(255,99,132,1)',
+      pointBackgroundColor: 'rgba(255,99,132,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(255,99,132,1)',
+      data: [74, 40, 60, 89, 96, 100],
+
+    }
+  ]
+};
+const DataAsset = {
         labels: [
             'Immobilier',
             'Financier',
@@ -24,55 +44,7 @@ const data = {
             ],
         }],
        
-    };
-const options = {
-        legend: {
-            display: true,
-            position: 'right',
-            "labels": {
-                "fontColor": "rgb(255, 255, 255)"
-              }
-        },
-
-  };
-
-
-const dataRadar = {
-  labels: ['Succession', 'Fiscalité IR', 'Fiscalité IFI', 'Rentabilité CT', 'Rentabilité LT', 'Retraite',],
-  datasets: [
-    {
-      label: 'Mes priorités',
-      backgroundColor: 'rgba(255,99,132,0.2)',
-      borderColor: 'rgba(255,99,132,1)',
-      pointBackgroundColor: 'rgba(255,99,132,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(255,99,132,1)',
-      data: [74, 40, 60, 89, 96, 100],
-
-    }
-  ]
 };
-const optionsRadar = {
-        legend: {
-            display: false,
-        },
-
-        scale: {
-        	pointLabels:{
-        	       fontColor:"white",
-        	    },
-            reverse: false,
-            gridLines: {
-              color: [
-                'white',
-              ]
-            },
-            ticks: {
-              beginAtZero: true
-            }
-        }
-  };
 
 
 class App extends Component {
@@ -88,7 +60,7 @@ class App extends Component {
 		        	<MainCard 
 		        		title =     "Patrimoine" 
 		        		subHeader = "Composition du patrimoine"
-		        		data =      <Doughnut data={data} options = {options} />
+		        		data =      <Doughnut data={DataAsset} options = {OptionsAsset} />
 		        		collapse =  "Détail de votre patrimoine financier :"
 		        	/>
 		        	</Col>
@@ -96,7 +68,7 @@ class App extends Component {
 		        	<MainCard 
 				        title =     "Profil financier" 
 				        subHeader = "Votre profil d'investisseur"
-				        data      =  <Radar data={dataRadar} options= {optionsRadar} />
+				        data      =  <Radar data={DataRadar} options= {OptionsRadar} />
 				        collapse =  "Détail de votre profil financier :"
 				    />	
 		        	</Col>
