@@ -6,51 +6,36 @@ import { Grid, Row, Col }          from 'react-flexbox-grid';
 import {Doughnut, Radar}           from 'react-chartjs-2';
 import OptionsRadar                from './const/OptionsRadar';
 import OptionsAsset                from './const/OptionsAsset';
+import DataAssetMock               from './Mocks/DataAssetMock';
+import DataRadarMock               from './Mocks/DataRadarMock';
 
-
-const DataRadar = {
-  labels: ['Succession', 'Fiscalité IR', 'Fiscalité IFI', 'Rentabilité CT', 'Rentabilité LT', 'Retraite',],
-  datasets: [
-    {
-      label: 'Mes priorités',
-      backgroundColor: 'rgba(255,99,132,0.2)',
-      borderColor: 'rgba(255,99,132,1)',
-      pointBackgroundColor: 'rgba(255,99,132,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(255,99,132,1)',
-      data: [74, 40, 60, 89, 96, 100],
-
-    }
-  ]
-};
-const DataAsset = {
-        labels: [
-            'Immobilier',
-            'Financier',
-            'Passif'
-        ],
-        datasets: [{
-            data: [300, 50, 100],
-            backgroundColor: [
-            '#FF6384',
-            '#36A2EB',
-            '#FFCE56'
-            ],
-            hoverBackgroundColor: [
-            '#FF6384',
-            '#36A2EB',
-            '#FFCE56'
-            ],
-        }],
-       
-};
 
 
 class App extends Component {
 
+	constructor()
+	{
+		super();
+		this.state = {
+				physicalPersons : [],
+		}
+		fetch("http://127.0.0.1:8000/api/user/339/physical-persons")
+		.then(response => response.json())
+		.then(data => this.setState({ physicalPersons: data }));
+	}
+	
+	
 
 	render() {
+		let physicalPersonsData = this.state.physicalPersons
+		const PhysicalPersons = () => {
+			const rows = physicalPersonsData.map((item, index) => 
+				<div key={index}>{item.first_name}</div>
+			);
+			 return <div className='offers'>{rows}</div>;
+		}
+		
+
 	    return (
 	        <div className="App">
 	        <div className="mainContainer">
@@ -60,7 +45,7 @@ class App extends Component {
 		        	<MainCard 
 		        		title =     "Patrimoine" 
 		        		subHeader = "Composition du patrimoine"
-		        		data =      <Doughnut data={DataAsset} options = {OptionsAsset} />
+		        		data =      <Doughnut data={DataAssetMock} options = {OptionsAsset} />
 		        		collapse =  "Détail de votre patrimoine financier :"
 		        	/>
 		        	</Col>
@@ -68,14 +53,15 @@ class App extends Component {
 		        	<MainCard 
 				        title =     "Profil financier" 
 				        subHeader = "Votre profil d'investisseur"
-				        data      =  <Radar data={DataRadar} options= {OptionsRadar} />
+				        data      =  <Radar data={DataRadarMock} options= {OptionsRadar} />
 				        collapse =  "Détail de votre profil financier :"
 				    />	
 		        	</Col>
 		        	<Col xs={12} md={6}>
 				    <MainCard 
 			        	title =     "Famille" 
-			        	subHeader = "Composition de la famille"
+			        	subHeader = {"Composition de la famille " } 
+				    	data = <PhysicalPersons />
 			        	collapse =  "Détail de la composition :"
 			        />
 				       </Col>
