@@ -1,6 +1,10 @@
 body {
 	 background: rgb(101,115,195) !important;
 }
+.flex {
+	display: flex;
+	
+}
 .MuiIcon-root-23 {
 	padding-right: 5px;
 }
@@ -17,4 +21,12 @@ body {
 }
 .MuiCardContent-root-91 {
 	color: white;
+}
+.parentsData {
+	padding-bottom: 20px;
+}
+.familyTree {
+	display: flex;
+    flex-direction: column;
+    align-items: center;
 }
