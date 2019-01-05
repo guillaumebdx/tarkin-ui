@@ -24,3 +24,13 @@ body {
 .white {
 	color: white;
 }
+.closeIcon {
+	position: absolute;
+    right: 0;
+    top: 0;
+}
+.modalTitle {
+	position: absolute;
+    top: 15px;
+    left: 15px;
+}

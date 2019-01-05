@@ -34,6 +34,11 @@ const styles = theme => ({
 });
 
 class RecipeReviewCard extends React.Component {
+	handleClick = (context) => {
+	    if (context === "properties") {
+	    	this.props.callback("modalAddProperties");
+	    }
+	  }
   state = { expanded: false };
 
   handleExpandClick = () => {
@@ -62,7 +67,7 @@ class RecipeReviewCard extends React.Component {
           <span className="white"><ListIcon /></span>
           </IconButton>
           <IconButton>
-          <span className="white"><AddIcon /></span>
+          <span className="white"><AddIcon onClick={() => this.handleClick(this.props.context)} /></span>
           </IconButton>
           <IconButton
             className={classnames(classes.expand, {

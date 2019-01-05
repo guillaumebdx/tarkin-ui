@@ -9,6 +9,7 @@ import OptionsRadar                from './const/OptionsRadar';
 import OptionsAsset                from './const/OptionsAsset';
 import DataRadarMock               from './Mocks/DataRadarMock';
 import FamilyTree                  from './components/Card/FamilyTree';
+import AddPropertyDialog           from './components/Dialogs/AddPropertyDialog';
 
 
 
@@ -20,6 +21,7 @@ class App extends Component {
 		this.state = {
 				physicalPersons : [],
 				propertiesSum   : [],
+				propertyModalIsOpen : false, 
 		}
 		
 	}
@@ -39,6 +41,12 @@ class App extends Component {
 		.then(data => this.setState({ propertiesSum: data }));
 		
 		
+	}
+	openPropertyModal() {
+		this.setState({propertyModalIsOpen : true})
+	}
+	closePropertyModal() {
+		this.setState({propertyModalIsOpen : false})
 	}
 
 	render() {
@@ -66,6 +74,10 @@ class App extends Component {
 		};
 	    return (
 	        <div className="App">
+	        <AddPropertyDialog 
+	        open={this.state.propertyModalIsOpen} 
+	        callback = {this.closePropertyModal.bind(this)}
+	        />
 	        <div className="mainContainer">
 		        <Grid>
 		            <Row around="md">
@@ -75,6 +87,8 @@ class App extends Component {
 		        		subHeader = "Composition du patrimoine"
 		        		data      = <Doughnut data={DataAssetMock} options = {OptionsAsset} />
 		        		collapse  = "Détail de votre patrimoine financier :"
+		        		context   = "properties"
+		        		callback = {this.openPropertyModal.bind(this)}
 		        	/>
 		        	</Col>
 		        	<Col xs={12} md={6}>
