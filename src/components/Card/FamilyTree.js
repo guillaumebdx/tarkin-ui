@@ -27,21 +27,21 @@ class FamilyTree extends Component
 			const childrenData = children.map((item, index) => 
 			<li  key={index}>
 				<div className="treeHover"><Icon fontSize="large">person_pin</Icon></div>
-				<div className="treeName">{item.first_name}</div>
+				<div className="treeName white">{item.first_name}</div>
 			</li>
 			
 		);
 			const cradleData = cradle.map((item, index) => 
 			<li  key={index}>
 				<div className="treeHover"><Icon fontSize="large">person_pin</Icon></div>
-				<div className="treeName">{item.first_name}</div>
+				<div className="treeName white">{item.first_name}</div>
 			</li>
 			
 		);
 			const spouseData = spouse.map((item, index) => 
 			<li  key={index}>
 				<div className="treeHover"><Icon fontSize="large">person_pin</Icon></div>
-				<div className="treeName">{item.first_name}</div>
+				<div className="treeName white">{item.first_name}</div>
 			</li>
 			
 		);

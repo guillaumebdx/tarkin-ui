@@ -5,12 +5,6 @@ body {
 	display: flex;
 	
 }
-.MuiIcon-root-23 {
-	padding-right: 5px;
-}
-.MuiCardHeader-content-35 .MuiTypography-headline-43,.MuiCardHeader-content-35 .MuiTypography-body1-47, .MuiIconButton-label-78, .MuiCardContent-root-92 {
-	color: white;
-}
 
 .mainCard {
 	background-color: #221266 !important;
@@ -19,9 +13,6 @@ body {
 .mainContainer {
 	margin-bottom: 50px;
 }
-.MuiCardContent-root-91 {
-	color: white;
-}
 .parentsData {
 	padding-bottom: 20px;
 }
@@ -29,4 +20,7 @@ body {
 	display: flex;
     flex-direction: column;
     align-items: center;
+}
+.white {
+	color: white;
 }

@@ -48,21 +48,21 @@ class RecipeReviewCard extends React.Component {
         <CardHeader
           action={
             <IconButton>
-              <MoreVertIcon />
+            <span className="white"><MoreVertIcon /></span>
             </IconButton>
           }
-          title={this.props.title}
-          subheader={this.props.subHeader}
+          title=<span className="white">{this.props.title}</span>
+          subheader=<span className="white">{this.props.subHeader}</span>
         />
         <CardContent>
         {this.props.data}
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
           <IconButton>
-            <ListIcon />
+          <span className="white"><ListIcon /></span>
           </IconButton>
           <IconButton>
-            <AddIcon />
+          <span className="white"><AddIcon /></span>
           </IconButton>
           <IconButton
             className={classnames(classes.expand, {
@@ -72,12 +72,12 @@ class RecipeReviewCard extends React.Component {
             aria-expanded={this.state.expanded}
             aria-label="Voir plus"
           >
-            <ExpandMoreIcon />
+          <span className="white"><ExpandMoreIcon /></span>
           </IconButton>
         </CardActions>
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
           <CardContent>
-          	   {this.props.collapse}
+          <span className="white">{this.props.collapse}</span>
           </CardContent>
         </Collapse>
       </Card>
