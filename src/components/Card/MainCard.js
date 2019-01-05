@@ -8,8 +8,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
-import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
+import ListIcon from '@material-ui/icons/List';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
@@ -59,7 +59,7 @@ class RecipeReviewCard extends React.Component {
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
           <IconButton>
-            <EditIcon />
+            <ListIcon />
           </IconButton>
           <IconButton>
             <AddIcon />
