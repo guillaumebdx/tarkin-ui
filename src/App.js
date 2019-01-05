@@ -7,7 +7,6 @@ import { Grid, Row, Col }          from 'react-flexbox-grid';
 import {Doughnut, Radar}           from 'react-chartjs-2';
 import OptionsRadar                from './const/OptionsRadar';
 import OptionsAsset                from './const/OptionsAsset';
-import DataAssetMock               from './Mocks/DataAssetMock';
 import DataRadarMock               from './Mocks/DataRadarMock';
 import FamilyTree                  from './components/Card/FamilyTree';
 
@@ -20,13 +19,51 @@ class App extends Component {
 		super();
 		this.state = {
 				physicalPersons : [],
+				propertiesSum   : [],
 		}
-		fetch("http://127.0.0.1:8000/api/user/345/physical-persons")
+		
+	}
+	
+	componentDidMount()
+	{
+		let url = new URL(window.location.href);
+		let searchParams = new URLSearchParams(url.search);
+		console.log();  
+		
+		fetch("http://tarkin.harari.io/api/user/" + searchParams.get('user') + "/physical-persons")
 		.then(response => response.json())
 		.then(data => this.setState({ physicalPersons: data }));
+		
+		fetch("http://tarkin.harari.io/api/user/" + searchParams.get('user') + "/properties/sum")
+		.then(response => response.json())
+		.then(data => this.setState({ propertiesSum: data }));
+		
+		
 	}
 
 	render() {
+
+		const DataAssetMock = {
+		        labels: [
+		            'Immobilier',
+		            'Financier',
+		            'Passif'
+		        ],
+		        datasets: [{
+		            data: [this.state.propertiesSum.realEstate, this.state.propertiesSum.financial, 0],
+		            backgroundColor: [
+		            '#FF6384',
+		            '#36A2EB',
+		            '#FFCE56'
+		            ],
+		            hoverBackgroundColor: [
+		            '#FF6384',
+		            '#36A2EB',
+		            '#FFCE56'
+		            ],
+		        }],
+		       
+		};
 	    return (
 	        <div className="App">
 	        <div className="mainContainer">
