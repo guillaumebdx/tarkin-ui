@@ -20,15 +20,26 @@ class AddPropertyDialog extends Component
 	{
 		super(props)
 		this.state = {
-				propertyData : new Map(),
+				realEstate   : new Map(),
 				name         : '',
 				amount       : null,
 				rate         : null, 
 				isFinancial  : null,
+				financialList : new Map(),
 				propertyType : '',
 		}
 	}
-
+	componentDidMount()
+	{
+		fetch("http://tarkin.harari.io/api/properties/financial")
+		.then(response => response.json())
+		.then(data => this.setState({ financialList: data }));
+		
+		fetch("http://tarkin.harari.io/api/properties/realestate")
+		.then(response => response.json())
+		.then(data => this.setState({ realEstateList: data }));
+		
+	}
 	handleClose = () => {
 	    	this.props.callback();
 	  }
@@ -49,6 +60,53 @@ class AddPropertyDialog extends Component
 	  }
 
 	render() {
+		const FinancialList = () => { 
+			return (
+					<TextField
+			          id="outlined-select-currency-native"
+			          select
+			          label="Placement"
+			          onChange ={this.handleChange('financialId')}
+					  value = {this.state.financialId}
+
+			          SelectProps={{
+			            native: true,
+			          }}
+			          margin="normal"
+			          variant="outlined"
+			        >
+			          {this.state.financialList.map(option => (
+			            <option key={option.id} value={option.id}>
+			              {option.name}
+			            </option>
+			          ))}
+			        </TextField>
+			);
+		}
+		const RealEstateList = () => { 
+			return (
+					<TextField
+			          id="outlined-select-currency-native"
+			          select
+			          label="Bien immobilier"
+			          onChange ={this.handleChange('realEstateId')}
+					  value = {this.state.realEstateId}
+
+			          SelectProps={{
+			            native: true,
+			          }}
+			          margin="normal"
+			          variant="outlined"
+			        >
+			          {this.state.realEstateList.map(option => (
+			            <option key={option.id} value={option.id}>
+			              {option.name}
+			            </option>
+			          ))}
+			        </TextField>
+			);
+		}
+		
 		const DialogContent = withStyles(theme => ({
 			  root: {
 			    margin: 0,
@@ -127,6 +185,8 @@ class AddPropertyDialog extends Component
 		        />
 		        </RadioGroup>
 				</div>
+				{this.state.propertyType === "checkedFinancial" && <FinancialList />}
+				{this.state.propertyType === "checkedRealEstate" && <RealEstateList />}
 				</form>
 			    </DialogContent>
 			    </Dialog>
