@@ -34,6 +34,12 @@ const styles = theme => ({
 });
 
 class RecipeReviewCard extends React.Component {
+	
+	constructor(props) {
+		super(props)
+		this.handleClick = this.handleClick.bind(this);
+	}
+	
 	handleClick = (context) => {
 	    if (context === "properties") {
 	    	this.props.callback("modalAddProperties");
