@@ -72,8 +72,8 @@ class RecipeReviewCard extends React.Component {
           <IconButton>
           <span className="white"><ListIcon /></span>
           </IconButton>
-          <IconButton>
-          <span className="white"><AddIcon onClick={() => this.handleClick(this.props.context)} /></span>
+          <IconButton onClick={() => this.handleClick(this.props.context)}>
+          <span className="white"><AddIcon /></span>
           </IconButton>
           <IconButton
             className={classnames(classes.expand, {
