@@ -82,7 +82,7 @@ class AddPropertyDialog extends Component
 	  };
 	  handleDateChange = date => {
 		    this.setState({ selectedDate: date });
-		  };
+	};
 
 	  handleChangeIsFinancial = event => {
 		    this.setState({ propertyType: event.target.value });
@@ -93,8 +93,8 @@ class AddPropertyDialog extends Component
 		    }
 	  }
 	  
-	  save = (test) => {
-		  console.log(test)
+	  save = (data) => {
+		  
 	  }
 	  
 	  plusClicked = (context) => {
@@ -106,7 +106,7 @@ class AddPropertyDialog extends Component
 				  propertyType = this.state.realEstateId;
 			  }
 
-			 let AddPropertyData = [
+			 let AddPropertyData = 
 				 {
 					 personId          : this.state.propertyOwner,
 					 name              : this.state.name,
@@ -117,8 +117,16 @@ class AddPropertyDialog extends Component
 					 acquirementDate   : dateFormat(this.state.selectedDate, "isoDateTime"),
 					 
 				 }
-				 ]
-			  this.save(AddPropertyData);
+				 
+			 fetch('http://127.0.0.1:8000/api/new-property', {
+				  method: 'post',
+				  headers: {
+				    'Accept': 'application/json, text/plain, */*',
+				    'Content-Type': 'application/json'
+				  },
+				  body: JSON.stringify(AddPropertyData)
+				}).then(res=>res.json())
+				  .then(res => console.log(res));
 			  this.handleClose();
 			  }
 

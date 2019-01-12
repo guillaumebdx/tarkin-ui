@@ -39,8 +39,6 @@ class App extends Component {
 		fetch("http://tarkin.harari.io/api/user/" + searchParams.get('user') + "/properties/sum")
 		.then(response => response.json())
 		.then(data => this.setState({ propertiesSum: data }));
-		
-		
 	}
 	openPropertyModal() {
 		this.setState({propertyModalIsOpen : true})
