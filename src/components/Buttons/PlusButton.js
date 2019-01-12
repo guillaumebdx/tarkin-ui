@@ -7,7 +7,7 @@ import                           '../../styles/button.css';
 class PlusButton extends Component {
 	
 	handleClick = (context) => {
-	    console.log(context);
+		this.props.callback(context);
 	  }
 
 	render(props) {

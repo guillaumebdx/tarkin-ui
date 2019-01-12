@@ -75,7 +75,8 @@ class App extends Component {
 	    return (
 	        <div className="App">
 	        <AddPropertyDialog 
-	        open={this.state.propertyModalIsOpen} 
+	        open     = {this.state.propertyModalIsOpen} 
+	        persons  = {this.state.physicalPersons}
 	        callback = {this.closePropertyModal.bind(this)}
 	        />
 	        <div className="mainContainer">
