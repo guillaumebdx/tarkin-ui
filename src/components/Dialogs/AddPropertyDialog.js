@@ -118,7 +118,7 @@ class AddPropertyDialog extends Component
 					 
 				 }
 				 
-			 fetch('http://127.0.0.1:8000/api/new-property', {
+			 fetch('http://tarkin.harari.io/api/new-property', {
 				  method: 'post',
 				  headers: {
 				    'Accept': 'application/json, text/plain, */*',
@@ -127,7 +127,7 @@ class AddPropertyDialog extends Component
 				  body: JSON.stringify(AddPropertyData)
 				}).then(res=>res.json())
 				  .then(res => console.log(res));
-			  this.handleClose();
+			  this.props.callbackSave();
 			  }
 
 		  }
