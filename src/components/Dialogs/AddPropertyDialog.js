@@ -32,14 +32,25 @@ class AddPropertyDialog extends Component
 				isFinancial       : null,
 				financialList     : new Map(),
 				propertyType      : '',
-				propertyOwner     : '0',
-				acquirementTypeId : '0',
 				spouses           : [],
-				financialId       : '0',
-				realEstateId      : '0',
 				selectedDate      : new Date(),
 		}
 		this.handleChange = this.handleChange.bind(this)
+	}
+	shouldComponentUpdate(nextProps, nextState)
+	{
+		console.log(nextState)
+		if (nextState.propertyType !== this.state.propertyType) {
+			return true;
+		}
+		if (nextProps.open !== this.props.open) {
+			return true;
+		}
+		if (nextState.selectedDate !== this.state.selectedDate) {
+			return true;
+		}
+
+		return false;
 	}
 	componentDidMount()
 	{
