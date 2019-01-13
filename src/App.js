@@ -30,8 +30,7 @@ class App extends Component {
 	{
 		let url = new URL(window.location.href);
 		let searchParams = new URLSearchParams(url.search);
-		console.log();  
-		
+	
 		fetch("http://tarkin.harari.io/api/user/" + searchParams.get('user') + "/physical-persons")
 		.then(response => response.json())
 		.then(data => this.setState({ physicalPersons: data }));
@@ -51,7 +50,7 @@ class App extends Component {
 		let searchParams = new URLSearchParams(url.search);
 		fetch("http://tarkin.harari.io/api/user/" + searchParams.get('user') + "/properties/sum")
 		.then(response => response.json())
-		.then(data => this.setState({ propertiesSum: data }));
+		.then(datum => this.setState({ propertiesSum: datum }));
 		this.setState({propertyModalIsOpen : false})
 	}
 

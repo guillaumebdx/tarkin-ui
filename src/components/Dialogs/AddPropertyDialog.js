@@ -35,6 +35,8 @@ class AddPropertyDialog extends Component
 				propertyOwner     : '0',
 				acquirementTypeId : '',
 				spouses           : [],
+				financialId       : '0',
+				realEstateId      : '0',
 				selectedDate      : new Date(),
 		}
 		this.handleChange = this.handleChange.bind(this)
@@ -54,7 +56,6 @@ class AddPropertyDialog extends Component
 		.then(data => this.setState({ acquisitionTypeList: data, acquirementTypeId: data[0].id }));
 	
 	}
-	
 	componentWillReceiveProps(nextProps)
 	{
 		let spouses = [];
@@ -75,9 +76,9 @@ class AddPropertyDialog extends Component
 	handleClose = () => {
 	    	this.props.callback();
 	  }
-
+	
 	handleChange = (name) => event => {
-	    this.setState({
+		this.setState({
 	        [name]: event.target.value,
 	    });
 	  };
@@ -88,16 +89,15 @@ class AddPropertyDialog extends Component
 	  handleChangeIsFinancial = event => {
 		    this.setState({ propertyType: event.target.value });
 		    if (event.target.value === "checkedFinancial") {
+		    	this.setState({realEstateId : "0"})
 		    	this.setState({isFinancial : true});
 		    } else {
+		    	this.setState({financialId : "0"})
 		    	this.setState({isFinancial : false});
 		    }
 	  }
 	  
-	  save = (data) => {
-		  
-	  }
-	  
+  
 	  plusClicked = (context) => {
 		  if(context === "plusButton" ) {
 			  let propertyType = '';
@@ -118,17 +118,19 @@ class AddPropertyDialog extends Component
 					 acquirementDate   : dateFormat(this.state.selectedDate, "isoDateTime"),
 					 
 				 }
-				 
-			 fetch('http://tarkin.harari.io/api/new-property', {
-				  method: 'post',
-				  headers: {
-				    'Accept': 'application/json, text/plain, */*',
-				    'Content-Type': 'application/json'
-				  },
-				  body: JSON.stringify(AddPropertyData)
-				}).then(res=>res.json())
-				  .then(res => console.log(res));
-			  this.props.callbackSave();
+			 const request = async () => {
+				  const rawResponse = await fetch('http://tarkin.harari.io/api/new-property', {
+				    method: 'POST',
+				    headers: {
+				      'Accept': 'application/json, text/plain, */*',
+				      'Content-Type': 'application/json'
+				    },
+				    body: JSON.stringify(AddPropertyData)
+				  });
+				  const content = await rawResponse.json();
+				  this.props.callbackSave()
+				};
+				request();
 			  }
 
 		  }
@@ -140,6 +142,7 @@ class AddPropertyDialog extends Component
 			          id="outlined-select-currency-native"
 			          select
 			          label="Placement"
+			          fullWidth
 			          onChange ={this.handleChange('financialId')}
 					  value = {this.state.financialId}
 					  
@@ -149,6 +152,7 @@ class AddPropertyDialog extends Component
 			          margin="normal"
 			          variant="outlined"
 			        >
+					    <option key="0" value = ""></option>
 			          {this.state.financialList.map(option => (
 			            <option key={option.id} value={option.id}>
 			              {option.name}
@@ -171,7 +175,9 @@ class AddPropertyDialog extends Component
 			          }}
 			          margin="normal"
 			          variant="outlined"
+			          fullWidth
 			        >
+					   <option key="0" value = ""></option>
 			          {this.state.realEstateList.map(option => (
 			            <option key={option.id} value={option.id}>
 			              {option.name}
@@ -220,7 +226,7 @@ class AddPropertyDialog extends Component
 			          label    = "Acquis par"
 			          onChange = {this.handleChange('propertyOwner')}
 					  value    = {this.state.propertyOwner}
-
+					  fullWidth
 			          SelectProps={{
 			            native: true,
 			          }}
@@ -288,19 +294,22 @@ class AddPropertyDialog extends Component
 			        variant      = "outlined"
 			        defaultValue = {this.state.name}
 				    onBlur       = {this.handleChange('name')}
-				    key="propertyName"
+				    key          = "propertyName"
+				    fullWidth
+				    	
 				/>
 		        </div>
 				<div>
 			    <TextField 
-				    id      ="PropertyValue"
-			        label   ="Valeur du bien"
-			        margin  ="normal"
-			        variant ="outlined"
-			        type    ="number"
-			        defaultValue   = {this.state.amount}
+				    id           = "PropertyValue"
+			        label        = "Valeur du bien"
+			        margin       = "normal"
+			        variant      = "outlined"
+			        type         = "number"
+			        defaultValue = {this.state.amount}
 				    onBlur       = {this.handleChange('amount')}
-			        key="propertyValue"
+			        key          = "propertyValue"
+			        fullWidth
 				/>
 			    </div>
 				<div>
@@ -313,11 +322,13 @@ class AddPropertyDialog extends Component
 			        defaultValue = {this.state.rate}
 				    onBlur       = {this.handleChange('rate')}
 				    key="propertyRate"
+				    fullWidth
 			    />
 				</div>
 				<div>
 				<MuiPickersUtilsProvider utils={DateFnsUtils}>
 					<DatePicker 
+					    fullWidth
 						label       = "Date d'achat"
  					    variant     = "outlined"
 						margin      ="normal"
