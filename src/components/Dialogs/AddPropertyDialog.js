@@ -37,6 +37,7 @@ class AddPropertyDialog extends Component
 				spouses           : [],
 				selectedDate      : new Date(),
 		}
+		this.handleChange = this.handleChange.bind(this)
 	}
 	componentDidMount()
 	{
@@ -75,7 +76,7 @@ class AddPropertyDialog extends Component
 	    	this.props.callback();
 	  }
 
-	handleChange = name => event => {
+	handleChange = (name) => event => {
 	    this.setState({
 	        [name]: event.target.value,
 	    });
@@ -141,7 +142,7 @@ class AddPropertyDialog extends Component
 			          label="Placement"
 			          onChange ={this.handleChange('financialId')}
 					  value = {this.state.financialId}
-
+					  
 			          SelectProps={{
 			            native: true,
 			          }}
@@ -216,7 +217,7 @@ class AddPropertyDialog extends Component
 					<TextField
 			          id       = "outlined-select-currency-native"
 			          select
-			          label    = "Type d'acquisition"
+			          label    = "Acquis par"
 			          onChange = {this.handleChange('propertyOwner')}
 					  value    = {this.state.propertyOwner}
 
@@ -240,7 +241,7 @@ class AddPropertyDialog extends Component
 					<TextField
 			          id="outlined-select-currency-native"
 			          select
-			          label="Complément"
+			          label="Type d'acquisition"
 			          onChange ={this.handleChange('acquirementTypeId')}
 					  value = {this.state.acquirementTypeId}
 
@@ -265,10 +266,11 @@ class AddPropertyDialog extends Component
 				open     ={this.props.open} 
 				onClose  ={this.handleClose}
 		        onBlur   ={this.handleChange}
+				key = "DialogAddProperty"
 				>
 				<MuiDialogTitle disableTypography>
 				<span className="modalTitle">
-					Ajouter une propriété
+					Ajouter un bien
 				</span>
 				<span className="closeIcon">
 					 <IconButton aria-label="Close" onClick={this.handleClose}>
@@ -276,8 +278,8 @@ class AddPropertyDialog extends Component
 			        </IconButton>
 		        </span>
 				</MuiDialogTitle>
-				 <DialogContent>
-				 <form noValidate autoComplete="off">
+				 <DialogContent key="Content">
+				 <form noValidate autoComplete="off" key="FormAddProperty">
 				 <div>
 				<TextField 
 				    id           = "PropertyName"
@@ -286,6 +288,7 @@ class AddPropertyDialog extends Component
 			        variant      = "outlined"
 			        defaultValue = {this.state.name}
 				    onBlur       = {this.handleChange('name')}
+				    key="propertyName"
 				/>
 		        </div>
 				<div>
@@ -295,8 +298,9 @@ class AddPropertyDialog extends Component
 			        margin  ="normal"
 			        variant ="outlined"
 			        type    ="number"
-			        defaultValue = {this.state.amount}
+			        defaultValue   = {this.state.amount}
 				    onBlur       = {this.handleChange('amount')}
+			        key="propertyValue"
 				/>
 			    </div>
 				<div>
@@ -308,12 +312,13 @@ class AddPropertyDialog extends Component
 			        type         ="number"
 			        defaultValue = {this.state.rate}
 				    onBlur       = {this.handleChange('rate')}
+				    key="propertyRate"
 			    />
 				</div>
 				<div>
 				<MuiPickersUtilsProvider utils={DateFnsUtils}>
 					<DatePicker 
-						label       = "Date d'ouverture"
+						label       = "Date d'achat"
  					    variant     = "outlined"
 						margin      ="normal"
 			            value       = {this.state.selectedDate}
