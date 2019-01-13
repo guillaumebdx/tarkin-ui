@@ -16,6 +16,7 @@ import PlusButton           from '../Buttons/PlusButton';
 import DateFnsUtils                from '@date-io/date-fns';
 import { MuiPickersUtilsProvider } from 'material-ui-pickers';
 import { DatePicker }              from 'material-ui-pickers';
+import InputAdornment from '@material-ui/core/InputAdornment';
 const dateFormat = require('dateformat');
 
 class AddPropertyDialog extends Component
@@ -317,7 +318,7 @@ class AddPropertyDialog extends Component
 		        onBlur   ={this.handleChange}
 				key = "DialogAddProperty"
 				>
-				<MuiDialogTitle disableTypography>
+				<MuiDialogTitle disableTypography className="modalTitle">
 				<span className="modalTitle">
 					Ajouter un bien
 				</span>
@@ -354,6 +355,9 @@ class AddPropertyDialog extends Component
 			        defaultValue = {this.state.amount}
 				    onBlur       = {this.handleChange('amount')}
 			        key          = "propertyValue"
+			        InputProps={{
+			            endAdornment: <InputAdornment position="end">€</InputAdornment>,
+			        }}
 			        fullWidth
 				/>
 			    </div>
@@ -366,7 +370,10 @@ class AddPropertyDialog extends Component
 			        type         ="number"
 			        defaultValue = {this.state.rate}
 				    onBlur       = {this.handleChange('rate')}
-				    key="propertyRate"
+				    key          = "propertyRate"
+			    	InputProps={{
+			            endAdornment: <InputAdornment position="end">%</InputAdornment>,
+			        }}
 				    fullWidth
 			    />
 				</div>

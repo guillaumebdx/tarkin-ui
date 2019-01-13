@@ -30,9 +30,9 @@ body {
     top: 0;
 }
 .modalTitle {
-	position: absolute;
-    top: 15px;
-    left: 15px;
+	background-color: rgb(101,115,195);
+	color : white;
+	font-weight: 500;
 }
 .roundedIcon {
 	font-size: 36px;
