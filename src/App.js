@@ -79,12 +79,14 @@ class App extends Component {
 		};
 	    return (
 	        <div className="App">
+	        <div key={this.state.propertiesSum.realEstate + this.state.propertiesSum.financial}>
 	        <AddPropertyDialog 
 	        open     = {this.state.propertyModalIsOpen} 
 	        persons  = {this.state.physicalPersons}
 	        callback = {this.closePropertyModal.bind(this)}
 	        callbackSave = {this.updateSumProperties.bind(this)}
 	        />
+	        </div>
 	        <div className="mainContainer">
 		        <Grid>
 		            <Row around="md">

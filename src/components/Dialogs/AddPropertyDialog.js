@@ -39,7 +39,6 @@ class AddPropertyDialog extends Component
 	}
 	shouldComponentUpdate(nextProps, nextState)
 	{
-		console.log(nextState)
 		if (nextState.propertyType !== this.state.propertyType) {
 			return true;
 		}
@@ -47,6 +46,21 @@ class AddPropertyDialog extends Component
 			return true;
 		}
 		if (nextState.selectedDate !== this.state.selectedDate) {
+			return true;
+		}
+		if (nextState.isErrorName !== this.state.isErrorName) {
+			return true;
+		}
+		if (nextState.isErrorValue !== this.state.isErrorValue) {
+			return true;
+		}
+		if (nextState.isErrorPropertyType !== this.state.isErrorPropertyType) {
+			return true;
+		}
+		if (nextState.isErrorPropertyOwner !== this.state.isErrorOwner) {
+			return true;
+		}
+		if (nextState.isErrorAcquirementType !== this.state.isErrorAcquirementType) {
 			return true;
 		}
 
@@ -111,19 +125,35 @@ class AddPropertyDialog extends Component
   
 	  plusClicked = (context) => {
 		  if(context === "plusButton" ) {
+			  if (this.state.name === '') {
+				  return this.setState({isErrorName: true})
+			  }
+			  if (this.state.amount === '') {
+				  return this.setState({isErrorValue: true})
+			  }
+			  if (this.state.propertyOwner === "0" || typeof this.state.propertyOwner === "undefined") {
+				  return this.setState({isErrorPropertyOwner: true})
+			  }
+			  if (this.state.acquirementTypeId === "0" || typeof this.state.acquirementTypeId === "undefined") {
+				  return this.setState({isErrorAcquirementType: true})
+			  }
 			  let propertyType = '';
 			  if (this.state.isFinancial) {
 				  propertyType = this.state.financialId;
 			  } else {
 				  propertyType = this.state.realEstateId;
 			  }
+			  if (propertyType === "0" || typeof propertyType === "undefined") {
+				  return this.setState({isErrorPropertyType: true})
+			  }
+			  
 
 			 let AddPropertyData = 
 				 {
 					 personId          : this.state.propertyOwner,
 					 name              : this.state.name,
 					 value             : this.state.amount,
-					 returnRate        : this.state.rate,
+					 returnRate        : this.state.rate === null ? 0 : this.state.rate,
 					 propertyTypeId    : propertyType,
 					 acquirementTypeId : this.state.acquirementTypeId,
 					 acquirementDate   : dateFormat(this.state.selectedDate, "isoDateTime"),
@@ -150,6 +180,7 @@ class AddPropertyDialog extends Component
 		const FinancialList = () => { 
 			return (
 					<TextField
+					  error = {this.state.isErrorPropertyType}
 			          id="outlined-select-currency-native"
 			          select
 			          label="Placement"
@@ -175,7 +206,8 @@ class AddPropertyDialog extends Component
 		const RealEstateList = () => { 
 			return (
 					<TextField
-			          id="outlined-select-currency-native"
+					  error = {this.state.isErrorPropertyType}
+					  id="outlined-select-currency-native"
 			          select
 			          label="Bien immobilier"
 			          onChange ={this.handleChange('realEstateId')}
@@ -228,7 +260,8 @@ class AddPropertyDialog extends Component
 		const PropertyOwner = () => {
 			return (
 					<TextField
-			          id       = "outlined-select-currency-native"
+			          error    = {this.state.isErrorPropertyOwner}
+					  id       = "outlined-select-currency-native"
 			          select
 			          label    = "Acquis par"
 			          onChange = {this.handleChange('propertyOwner')}
@@ -253,7 +286,8 @@ class AddPropertyDialog extends Component
 		const AcquirementTypeList = () => { 
 			return (
 					<TextField
-			          id="outlined-select-currency-native"
+			          error = {this.state.isErrorAcquirementType}
+					  id="outlined-select-currency-native"
 			          select
 			          label="Type d'acquisition"
 			          onChange ={this.handleChange('acquirementTypeId')}
@@ -297,6 +331,7 @@ class AddPropertyDialog extends Component
 				 <form noValidate autoComplete="off" key="FormAddProperty">
 				 <div>
 				<TextField 
+					error        = {this.state.isErrorName}
 				    id           = "PropertyName"
 			        label        = "Nom du bien"
 			        margin       = "normal"
@@ -310,6 +345,7 @@ class AddPropertyDialog extends Component
 		        </div>
 				<div>
 			    <TextField 
+			    	error        = {this.state.isErrorValue}
 				    id           = "PropertyValue"
 			        label        = "Valeur du bien"
 			        margin       = "normal"
