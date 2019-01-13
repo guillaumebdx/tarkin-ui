@@ -33,7 +33,7 @@ class AddPropertyDialog extends Component
 				financialList     : new Map(),
 				propertyType      : '',
 				propertyOwner     : '0',
-				acquirementTypeId : '',
+				acquirementTypeId : '0',
 				spouses           : [],
 				financialId       : '0',
 				realEstateId      : '0',
@@ -53,7 +53,7 @@ class AddPropertyDialog extends Component
 		
 		fetch("http://tarkin.harari.io/api/acquirement-types")
 		.then(response => response.json())
-		.then(data => this.setState({ acquisitionTypeList: data, acquirementTypeId: data[0].id }));
+		.then(data => this.setState({ acquisitionTypeList: data }));
 	
 	}
 	componentWillReceiveProps(nextProps)
@@ -119,7 +119,7 @@ class AddPropertyDialog extends Component
 					 
 				 }
 			 const request = async () => {
-				  const rawResponse = await fetch('http://tarkin.harari.io/api/new-property', {
+				  await fetch('http://tarkin.harari.io/api/new-property', {
 				    method: 'POST',
 				    headers: {
 				      'Accept': 'application/json, text/plain, */*',
@@ -127,7 +127,7 @@ class AddPropertyDialog extends Component
 				    },
 				    body: JSON.stringify(AddPropertyData)
 				  });
-				  const content = await rawResponse.json();
+//				  const content = await rawResponse.json();
 				  this.props.callbackSave()
 				};
 				request();
@@ -205,10 +205,6 @@ class AddPropertyDialog extends Component
 		}
 		const OwnerListCommonMarriage = [
 			{
-				id : 0,
-				name : ''
-			},
-			{
 				id   : idSpouse1,
 				name : "Acquis par " + spouse1 
 			},
@@ -233,6 +229,7 @@ class AddPropertyDialog extends Component
 			          margin="normal"
 			          variant="outlined"
 			        >
+					   <option key="0" value = ""></option>
 			          {OwnerListCommonMarriage.map(option => (
 			            <option key={option.id} value={option.id}>
 			              {option.name}
@@ -257,6 +254,7 @@ class AddPropertyDialog extends Component
 			          margin="normal"
 			          variant="outlined"
 			        >
+					   <option key="0" value = ""></option>
 			          {this.state.acquisitionTypeList.map(option => (
 			            <option key={option.id} value={option.id}>
 			              {option.name}
