@@ -110,15 +110,13 @@ class AddPropertyDialog extends Component
 	  };
 	  handleDateChange = date => {
 		    this.setState({ selectedDate: date });
-	};
+	  };
 
 	  handleChangeIsFinancial = event => {
 		    this.setState({ propertyType: event.target.value });
 		    if (event.target.value === "checkedFinancial") {
-		    	this.setState({realEstateId : "0"})
 		    	this.setState({isFinancial : true});
 		    } else {
-		    	this.setState({financialId : "0"})
 		    	this.setState({isFinancial : false});
 		    }
 	  }

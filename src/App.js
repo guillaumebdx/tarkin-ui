@@ -10,6 +10,7 @@ import OptionsAsset                from './const/OptionsAsset';
 import DataRadarMock               from './Mocks/DataRadarMock';
 import FamilyTree                  from './components/Card/FamilyTree';
 import AddPropertyDialog           from './components/Dialogs/AddPropertyDialog';
+import AddPhysicalPersonDialog     from './components/Dialogs/AddPhysicalPersonDialog';
 
 
 
@@ -22,6 +23,8 @@ class App extends Component {
 				physicalPersons : [],
 				propertiesSum   : [],
 				propertyModalIsOpen : false, 
+				physicalPersonModalIsOpen : false, 
+				keyModalProperty : 0,
 		}
 		
 	}
@@ -40,7 +43,14 @@ class App extends Component {
 		.then(data => this.setState({ propertiesSum: data }));
 	}
 	openPropertyModal() {
-		this.setState({propertyModalIsOpen : true})
+		this.setState({propertyModalIsOpen : true, keyModalProperty : this.state.keyModalProperty + 1})
+		
+	}
+	openPhysicalPersonModal() {
+		this.setState({physicalPersonModalIsOpen : true})
+	}
+	closePhysicalPersonModal() {
+		this.setState({physicalPersonModalIsOpen : false})
 	}
 	closePropertyModal() {
 		this.setState({propertyModalIsOpen : false})
@@ -77,14 +87,22 @@ class App extends Component {
 		        }],
 		       
 		};
+
 	    return (
 	        <div className="App">
-	        <div key={this.state.propertiesSum.realEstate + this.state.propertiesSum.financial}>
+	        <div key={this.state.keyModalProperty}>
 	        <AddPropertyDialog 
-	        open     = {this.state.propertyModalIsOpen} 
-	        persons  = {this.state.physicalPersons}
-	        callback = {this.closePropertyModal.bind(this)}
+	        open         = {this.state.propertyModalIsOpen} 
+	        persons      = {this.state.physicalPersons}
+	        callback     = {this.closePropertyModal.bind(this)}
 	        callbackSave = {this.updateSumProperties.bind(this)}
+	        />
+	        </div>
+	        <div>
+	        <AddPhysicalPersonDialog 
+	        open     = {this.state.physicalPersonModalIsOpen} 
+	        persons  = {this.state.physicalPersons}
+	        callback = {this.closePhysicalPersonModal.bind(this)}
 	        />
 	        </div>
 	        <div className="mainContainer">
@@ -114,6 +132,8 @@ class App extends Component {
 			        	subHeader = {"Composition de la famille " } 
 				    	data      = <FamilyTree personsData =  {this.state.physicalPersons} />
 			        	collapse  = "Détail de la composition :"
+			        	context   = "physicalPerson"
+			        	callback = {this.openPhysicalPersonModal.bind(this)}
 			        />
 				       </Col>
 				       <Col xs={12} md={6}>
