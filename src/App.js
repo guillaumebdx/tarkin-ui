@@ -31,37 +31,47 @@ class App extends Component {
 	
 	componentDidMount()
 	{
-		let url = new URL(window.location.href);
+		let url          = new URL(window.location.href);
 		let searchParams = new URLSearchParams(url.search);
-	
-		fetch("http://tarkin.harari.io/api/user/" + searchParams.get('user') + "/physical-persons")
+		let userId       = searchParams.get('user');
+		this.setState({userId : userId});
+		fetch("http://tarkin.harari.io/api/user/" + userId + "/physical-persons")
 		.then(response => response.json())
 		.then(data => this.setState({ physicalPersons: data }));
 		
-		fetch("http://tarkin.harari.io/api/user/" + searchParams.get('user') + "/properties/sum")
+		fetch("http://tarkin.harari.io/api/user/" + userId + "/properties/sum")
 		.then(response => response.json())
 		.then(data => this.setState({ propertiesSum: data }));
 	}
-	openPropertyModal() {
+	openPropertyModal() 
+	{
 		this.setState({propertyModalIsOpen : true, keyModalProperty : this.state.keyModalProperty + 1})
 		
 	}
-	openPhysicalPersonModal() {
+	openPhysicalPersonModal() 
+	{
 		this.setState({physicalPersonModalIsOpen : true})
 	}
-	closePhysicalPersonModal() {
+	closePhysicalPersonModal() 
+	{
 		this.setState({physicalPersonModalIsOpen : false})
 	}
-	closePropertyModal() {
+	closePropertyModal() 
+	{
 		this.setState({propertyModalIsOpen : false})
 	}
-	updateSumProperties(data) {
+	updateSumProperties(data) 
+	{
 		let url = new URL(window.location.href);
 		let searchParams = new URLSearchParams(url.search);
 		fetch("http://tarkin.harari.io/api/user/" + searchParams.get('user') + "/properties/sum")
 		.then(response => response.json())
 		.then(datum => this.setState({ propertiesSum: datum }));
 		this.setState({propertyModalIsOpen : false})
+	}
+	updatePhysicalPersons()
+	{
+		
 	}
 
 	render() {
@@ -100,9 +110,11 @@ class App extends Component {
 	        </div>
 	        <div>
 	        <AddPhysicalPersonDialog 
-	        open     = {this.state.physicalPersonModalIsOpen} 
-	        persons  = {this.state.physicalPersons}
-	        callback = {this.closePhysicalPersonModal.bind(this)}
+	        open         = {this.state.physicalPersonModalIsOpen} 
+	        persons      = {this.state.physicalPersons}
+	        callback     = {this.closePhysicalPersonModal.bind(this)}
+	        callbackSave = {this.updatePhysicalPersons.bind(this)}
+	        userId       = {this.state.userId}
 	        />
 	        </div>
 	        <div className="mainContainer">
@@ -115,7 +127,7 @@ class App extends Component {
 		        		data      = <Doughnut data={DataAssetMock} options = {OptionsAsset} />
 		        		collapse  = "Détail de votre patrimoine financier :"
 		        		context   = "properties"
-		        		callback = {this.openPropertyModal.bind(this)}
+		        		callback  = {this.openPropertyModal.bind(this)}
 		        	/>
 		        	</Col>
 		        	<Col xs={12} md={6}>

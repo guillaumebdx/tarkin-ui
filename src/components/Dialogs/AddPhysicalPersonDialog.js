@@ -26,9 +26,13 @@ class AddPhysicalPersonDialog extends Component
 	{
 		super(props)
 		this.state = {
-				name      :      "",
-				firstName : "",
-				spouses   : [],
+				name            : "",
+				firstName       : "",
+				familyPosition  : "",
+				spouses         : [],
+				spouseLaw       : "",
+				childOf         : "",
+				selectedDate    : new Date(),
 		}
 		this.handleChange = this.handleChange.bind(this)
 	}
@@ -47,7 +51,25 @@ class AddPhysicalPersonDialog extends Component
 		if (nextState.childOf !== this.state.childOf) {
 			return true;
 		}
+		if (nextState.spouseLaw !== this.state.spouseLaw) {
+			return true;
+		}
 		if (nextState.isErrorName !== this.state.isErrorName) {
+			return true;
+		}
+		if (nextState.spouseLaws !== this.state.spouseLaws) {
+			return true;
+		}
+		if (nextState.isErrorFirstName !== this.state.isErrorFirstName) {
+			return true;
+		}
+		if (nextState.isErrorFamilyPosition !== this.state.isErrorFamilyPosition) {
+			return true;
+		}
+		if (nextState.isErrorSpouseLaw !== this.state.isErrorSpouseLaw) {
+			return true;
+		}
+		if (nextState.isErrorChildOf !== this.state.isErrorChildOf) {
 			return true;
 		}
 		return false;
@@ -57,6 +79,10 @@ class AddPhysicalPersonDialog extends Component
 		fetch("http://tarkin.harari.io/api/family-positions")
 		.then(response => response.json())
 		.then(data => this.setState({ familyPositionList: data }));
+		
+		fetch("http://tarkin.harari.io/api/spouses-laws")
+		.then(response => response.json())
+		.then(data => this.setState({ spouseLaws: data }));
 	}
 
 	componentWillReceiveProps(nextProps)
@@ -102,6 +128,54 @@ class AddPhysicalPersonDialog extends Component
 	  handleDateChange = date => {
 		    this.setState({ selectedDate: date });
 	};
+	plusClicked = (context) => {
+		  if(context === "plusButton" ) {
+			  if (this.state.firstName === '') {
+				  return this.setState({isErrorFirstName: true})
+			  }
+			  if (this.state.name === '') {
+				  return this.setState({isErrorName: true})
+			  }
+			  if (this.state.familyPosition === "" ) {
+				  return this.setState({isErrorFamilyPosition: true})
+			  }
+			  if (this.state.familyPosition === "conjoint" && this.state.spouseLaw === "") {
+				  return this.setState({isErrorSpouseLaw: true})
+			  }
+			  if (this.state.familyPosition === "child" && this.state.childOf === "") {
+				  return this.setState({isErrorChildOf: true})
+			  }
+			 
+			  
+
+			 let PhysicalPersonData = 
+				 {
+					 userId            : this.props.userId,
+					 name              : this.state.name,
+					 firstName         : this.state.firstName,
+					 cradle            : false,
+					 birthDate         : dateFormat(this.state.selectedDate, "isoDateTime"),
+					 familyPositionId  : "31",
+					 parentId          : this.state.childOf,
+			 
+				 }
+
+			 const request = async () => {
+				  await fetch('http://tarkin.harari.io/api/new-person', {
+				    method: 'POST',
+				    headers: {
+				      'Accept': 'application/json, text/plain, */*',
+				      'Content-Type': 'application/json'
+				    },
+				    body: JSON.stringify(PhysicalPersonData)
+				  });
+//				  const content = await rawResponse.json();
+				  this.props.callbackSave()
+				};
+				request();
+			  }
+
+		  }
 
 	render() {
 		
@@ -149,7 +223,8 @@ class AddPhysicalPersonDialog extends Component
 			          margin="normal"
 			          variant="outlined"
 			        >
-					   <option key="0" value = "Couple">Couple</option>
+					   <option key="0" value = ""></option>
+					   <option key="couple" value = "Couple">Couple</option>
 			          {OwnerListCommonMarriage.map(option => (
 			            <option key={option.id} value={option.id}>
 			              {option.name}
@@ -159,7 +234,7 @@ class AddPhysicalPersonDialog extends Component
 			)
 		}
 		
-		const PhysicalPersonList = () => { 
+		const FamilyPositionList = () => { 
 			return (
 					<TextField
 					  error = {this.state.isErrorFamilyPosition}
@@ -178,6 +253,32 @@ class AddPhysicalPersonDialog extends Component
 			        >
 					   <option key="0" value = ""></option>
 			          {this.state.familyPositionList.map(option => (
+			            <option key={option.id} value={option.identifier}>
+			              {option.name}
+			            </option>
+			          ))}
+			        </TextField>
+			);
+		}
+		const SpouseLawsList = () => { 
+			return (
+					<TextField
+					  error = {this.state.isErrorSpouseLaw}
+					  id="outlined-select-currency-native"
+			          select
+			          label={"Lien du couple"}
+			          onChange ={this.handleChange('spouseLaw')}
+					  value = {this.state.spouseLaw}
+
+			          SelectProps={{
+			            native: true,
+			          }}
+			          margin="normal"
+			          variant="outlined"
+			          fullWidth
+			        >
+					   <option key="0" value = ""></option>
+			          {this.state.spouseLaws.map(option => (
 			            <option key={option.id} value={option.identifier}>
 			              {option.name}
 			            </option>
@@ -207,10 +308,11 @@ class AddPhysicalPersonDialog extends Component
 				 <DialogContent key="Content">
 				 <form noValidate autoComplete="off" key="FormAddPhysicalPerson">
 				 <div>
-				 	<PhysicalPersonList />
+				 <FamilyPositionList />
 				 </div>
 				 <div>
-				 	{!this.state.isSingle && <ChildOf /> }
+				 	{ this.state.familyPosition === "child" && <ChildOf /> }
+				 	{this.state.familyPosition === "conjoint" && <SpouseLawsList />}
 				 </div>
 				 <div>
 				<TextField 
@@ -250,6 +352,9 @@ class AddPhysicalPersonDialog extends Component
 			            value       = {this.state.selectedDate}
 					    onChange    = {this.handleDateChange} />
 				</MuiPickersUtilsProvider>
+				</div>
+				<div className="propertiesIcons">
+					{this.state.propertyType !== ""  && <PlusButton context="plusButton" callback = {this.plusClicked.bind(this)} /> }	
 				</div>
 				</form>
 			    </DialogContent>
