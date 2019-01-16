@@ -339,6 +339,7 @@ class AddPropertyDialog extends Component
 				 <div>
 				<TextField 
 					error        = {this.state.isErrorName}
+				    name         = "addPropertyName"
 				    id           = "PropertyName"
 			        label        = "Nom du bien"
 			        margin       = "normal"
@@ -353,6 +354,7 @@ class AddPropertyDialog extends Component
 				<div>
 			    <TextField 
 			    	error        = {this.state.isErrorValue}
+			        name         = "addPropertyValue"
 				    id           = "PropertyValue"
 			        label        = "Valeur du bien"
 			        margin       = "normal"
@@ -370,6 +372,7 @@ class AddPropertyDialog extends Component
 				<div>
 				<TextField 
 				    id           ="PropertyRate"
+				    name         = "addPropertyRate"
 			        label        ="Rendement du bien"
 			        margin       ="normal"
 			        variant      ="outlined"

@@ -216,6 +216,7 @@ class AddPhysicalPersonDialog extends Component
 				<TextField 
 					error        = {this.state.isErrorName}
 				    id           = "PhysicalPersonName"
+				    name         = "addPhysicalPersonName"
 			        label        = "Nom"
 			        margin       = "normal"
 			        variant      = "outlined"
@@ -229,6 +230,7 @@ class AddPhysicalPersonDialog extends Component
 				<TextField 
 					error        = {this.state.isErrorFirstName}
 				    id           = "PhysicalPersonFirstName"
+				    name         = "addPhysicalPersonFirstName"
 			        label        = "Prénom"
 			        margin       = "normal"
 			        variant      = "outlined"
