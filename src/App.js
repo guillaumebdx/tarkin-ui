@@ -90,7 +90,7 @@ class App extends Component {
 
 	    return (
 	        <div className="App">
-	        <div key={this.state.keyModalProperty}>
+	        <div key={this.state.propertiesSum.realEstate + this.state.propertiesSum.financial}>
 	        <AddPropertyDialog 
 	        open         = {this.state.propertyModalIsOpen} 
 	        persons      = {this.state.physicalPersons}
