@@ -118,6 +118,18 @@ class AddPhysicalPersonDialog extends Component
 		this.setState({
 	        [name]: event.target.value,
 	    });
+
+		if (name === "familyPosition") {
+			this.state.familyPositionList.map(position => {
+				if (position.identifier === event.target.value) {
+					this.setState({
+				        familyPositionId : position.id,
+				    });
+				}
+			})
+			
+			
+		}
 	  };
 
 	  plusClicked = (context) => {
@@ -155,7 +167,7 @@ class AddPhysicalPersonDialog extends Component
 					 firstName         : this.state.firstName,
 					 cradle            : false,
 					 birthDate         : dateFormat(this.state.selectedDate, "isoDateTime"),
-					 familyPositionId  : "31",
+					 familyPositionId  : this.state.familyPositionId,
 					 parentId          : this.state.childOf,
 			 
 				 }
@@ -243,7 +255,6 @@ class AddPhysicalPersonDialog extends Component
 			          label={"Lien familial"}
 			          onChange ={this.handleChange('familyPosition')}
 					  value = {this.state.familyPosition}
-
 			          SelectProps={{
 			            native: true,
 			          }}
@@ -253,7 +264,7 @@ class AddPhysicalPersonDialog extends Component
 			        >
 					   <option key="0" value = ""></option>
 			          {this.state.familyPositionList.map(option => (
-			            <option key={option.id} value={option.identifier}>
+			            <option key={option.id} value={option.identifier} >
 			              {option.name}
 			            </option>
 			          ))}
