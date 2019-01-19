@@ -32,6 +32,7 @@ class AddPhysicalPersonDialog extends Component
 				spouses         : [],
 				spouseLaw       : "",
 				childOf         : "",
+				relatedTo       : "",
 				selectedDate    : new Date(),
 		}
 		this.handleChange = this.handleChange.bind(this)
@@ -49,6 +50,9 @@ class AddPhysicalPersonDialog extends Component
 			return true;
 		}
 		if (nextState.childOf !== this.state.childOf) {
+			return true;
+		}
+		if (nextState.relatedTo !== this.state.relatedTo) {
 			return true;
 		}
 		if (nextState.spouseLaw !== this.state.spouseLaw) {
@@ -157,7 +161,18 @@ class AddPhysicalPersonDialog extends Component
 			  if (this.state.familyPosition === "child" && this.state.childOf === "") {
 				  return this.setState({isErrorChildOf: true})
 			  }
-			 
+			  let parentIds = [];
+			  
+			  if (this.state.childOf !== "" && this.state.childOf === "0") {
+				  this.state.spouses.map(spouse => {
+				      parentIds.push(spouse.id);
+				  });
+			  } else if (this.state.childOf !== "" && this.state.childOf !== "0") {
+				  parentIds.push(this.state.childOf)
+			  }
+			  if (this.state.relatedTo !== "") {
+				  parentIds.push(this.state.relatedTo)
+			  }
 			  
 
 			 let PhysicalPersonData = 
@@ -168,7 +183,7 @@ class AddPhysicalPersonDialog extends Component
 					 cradle            : false,
 					 birthDate         : dateFormat(this.state.selectedDate, "isoDateTime"),
 					 familyPositionId  : this.state.familyPositionId,
-					 parentId          : this.state.childOf,
+					 parentIds         : parentIds,
 			 
 				 }
 
@@ -211,11 +226,11 @@ class AddPhysicalPersonDialog extends Component
 		const OwnerListCommonMarriage = [
 			{
 				id   : idSpouse1,
-				name : "Enfant de " + spouse1 
+				name : spouse1 
 			},
 			{
 				id   :  idSpouse2,
-				name : "Enfant de " + spouse2
+				name :  spouse2
 			}
 		]
 		
@@ -236,7 +251,7 @@ class AddPhysicalPersonDialog extends Component
 			          variant="outlined"
 			        >
 					   <option key="0" value = ""></option>
-					   <option key="couple" value = "Couple">Couple</option>
+					   <option key="couple" value = "0">Couple</option>
 			          {OwnerListCommonMarriage.map(option => (
 			            <option key={option.id} value={option.id}>
 			              {option.name}
@@ -246,6 +261,33 @@ class AddPhysicalPersonDialog extends Component
 			)
 		}
 		
+		const RelatedTo = () => {
+			return (
+					<TextField
+			          error    = {this.state.isErrorChildOf}
+					  id       = "outlined-select-currency-native"
+			          select
+			          label    = "Lié à "
+			          onChange = {this.handleChange('relatedTo')}
+					  value    = {this.state.relatedTo}
+					  fullWidth
+			          SelectProps={{
+			            native: true,
+			          }}
+			          margin="normal"
+			          variant="outlined"
+			        >
+					   <option key="0" value = ""></option>
+			          {OwnerListCommonMarriage.map(option => (
+			            <option key={option.id} value={option.id}>
+			              {option.name}
+			            </option>
+			          ))}
+			        </TextField>
+			)
+		}
+
+	
 		const FamilyPositionList = () => { 
 			return (
 					<TextField
@@ -297,7 +339,23 @@ class AddPhysicalPersonDialog extends Component
 			        </TextField>
 			);
 		}
-
+		let displayRelatedTo = false;
+		if(this.state.familyPosition === "sibling" || 
+		   this.state.familyPosition === "parent" || 
+		   this.state.familyPosition === "uncle-aunt" ||
+		   this.state.familyPosition === "great-parent" ||
+		   this.state.familyPosition === "up-to-fourth-degree" ||
+		   this.state.familyPosition === "betond-fourth-degree"
+		) {
+			displayRelatedTo = true
+		}
+		let displayChildOf = false;
+		if(this.state.familyPosition === "child" || 
+		   this.state.familyPosition === "great-child"
+				) {
+					displayChildOf = true
+				}
+		
 		return (
 				<Dialog 
 				aria-labelledby="responsive-dialog-title"
@@ -322,7 +380,8 @@ class AddPhysicalPersonDialog extends Component
 				 <FamilyPositionList />
 				 </div>
 				 <div>
-				 	{ this.state.familyPosition === "child" && <ChildOf /> }
+				 	{displayChildOf            === true       && <ChildOf /> }
+				 	{displayRelatedTo          === true       && <RelatedTo /> }
 				 	{this.state.familyPosition === "conjoint" && <SpouseLawsList />}
 				 </div>
 				 <div>

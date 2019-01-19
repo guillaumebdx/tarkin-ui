@@ -35,6 +35,7 @@ class FamilyTree extends Component
 			<li  key={index}>
 				<div className="treeHover"><Icon fontSize="large">person_pin</Icon></div>
 				<div className="treeName white">{item.first_name}</div>
+				<ul>{childrenData}</ul>
 			</li>
 			
 		);
@@ -48,13 +49,13 @@ class FamilyTree extends Component
 			 return (
 					 <div className="tree familyTree">
 						 <ul>
-						 	{cradleData}
-						 <li>
-						 <ul>
-						 	{childrenData}
-						 </ul>
-						 </li>
-						 	{spouseData}
+						 	 {cradleData}
+						     <li>
+						         <ul>
+						 	        {childrenData}
+						         </ul>
+						     </li>
+						 	 {spouseData}
 						 </ul>
 					 </div>
 

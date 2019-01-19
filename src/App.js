@@ -71,7 +71,12 @@ class App extends Component {
 	}
 	updatePhysicalPersons()
 	{
-		
+		let url = new URL(window.location.href);
+		let searchParams = new URLSearchParams(url.search);
+		fetch("http://tarkin.harari.io/api/user/" + searchParams.get('user') + "/physical-persons")
+		.then(response => response.json())
+		.then(datum => this.setState({ physicalPersons: datum }));
+		this.setState({physicalPersonModalIsOpen : false})
 	}
 
 	render() {
