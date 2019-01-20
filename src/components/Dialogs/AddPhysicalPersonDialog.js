@@ -7,16 +7,10 @@ import TextField            from '@material-ui/core/TextField';
 import { withStyles }       from '@material-ui/core/styles';
 import MuiDialogContent     from '@material-ui/core/DialogContent';
 import withMobileDialog     from '@material-ui/core/withMobileDialog';
-import FormControlLabel     from '@material-ui/core/FormControlLabel';
-import Home                 from '@material-ui/icons/Home';
-import EuroSymbol           from '@material-ui/icons/EuroSymbol';
-import Radio                from '@material-ui/core/Radio';
-import RadioGroup           from '@material-ui/core/RadioGroup';
 import PlusButton           from '../Buttons/PlusButton';
 import DateFnsUtils                from '@date-io/date-fns';
 import { MuiPickersUtilsProvider } from 'material-ui-pickers';
 import { DatePicker }              from 'material-ui-pickers';
-import InputAdornment from '@material-ui/core/InputAdornment';
 const dateFormat = require('dateformat');
 
 class AddPhysicalPersonDialog extends Component
@@ -131,8 +125,6 @@ class AddPhysicalPersonDialog extends Component
 				    });
 				}
 			})
-			
-			
 		}
 	  };
 
