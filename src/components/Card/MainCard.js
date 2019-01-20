@@ -48,6 +48,11 @@ class RecipeReviewCard extends React.Component {
 	    	this.props.callback("modalAddPhysicalPerson");
 	    }
 	  }
+	handleClickList = (context) => {
+	    if (context === "properties") {
+	    	this.props.callback("modalListProperties");
+	    }
+	  }
   state = { expanded: false };
 
   handleExpandClick = () => {
@@ -72,7 +77,7 @@ class RecipeReviewCard extends React.Component {
         {this.props.data}
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
-          <IconButton>
+          <IconButton onClick={() => this.handleClickList(this.props.context)}>
           <span className="white"><ListIcon /></span>
           </IconButton>
           <IconButton onClick={() => this.handleClick(this.props.context)}>
