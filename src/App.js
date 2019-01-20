@@ -11,6 +11,8 @@ import DataRadarMock               from './Mocks/DataRadarMock';
 import FamilyTree                  from './components/Card/FamilyTree';
 import AddPropertyDialog           from './components/Dialogs/AddPropertyDialog';
 import AddPhysicalPersonDialog     from './components/Dialogs/AddPhysicalPersonDialog';
+import PropertyListDialog          from './components/Dialogs/PropertyListDialog';
+import DemoDialog                  from './components/Dialogs/DemoDialog';
 
 
 
@@ -20,11 +22,13 @@ class App extends Component {
 	{
 		super();
 		this.state = {
-				physicalPersons : [],
-				propertiesSum   : [],
-				propertyModalIsOpen : false, 
+				physicalPersons           : [],
+				propertiesSum             : [],
+				propertyModalIsOpen       : false, 
 				physicalPersonModalIsOpen : false, 
-				keyModalProperty : 0,
+				keyModalProperty          : 0,
+				propertyListDialogIsOpen  : false,
+				demoDialogisOpen          : false,
 		}
 		
 	}
@@ -34,6 +38,10 @@ class App extends Component {
 		let url          = new URL(window.location.href);
 		let searchParams = new URLSearchParams(url.search);
 		let userId       = searchParams.get('user');
+
+		if (userId === null) {
+			this.setState({demoDialogIsOpen: true})
+		}
 		this.setState({userId : userId});
 		fetch("http://tarkin.harari.io/api/user/" + userId + "/physical-persons")
 		.then(response => response.json())
@@ -43,9 +51,15 @@ class App extends Component {
 		.then(response => response.json())
 		.then(data => this.setState({ propertiesSum: data }));
 	}
-	openPropertyModal() 
+	openPropertyModal(context) 
 	{
-		this.setState({propertyModalIsOpen : true, keyModalProperty : this.state.keyModalProperty + 1})
+		if (context === "modalAddProperties") {
+			this.setState({propertyModalIsOpen : true, keyModalProperty : this.state.keyModalProperty + 1})
+		}
+		if (context === "modalListProperties") {
+			this.setState({propertyListDialogIsOpen : true})
+		}
+		
 		
 	}
 	openPhysicalPersonModal() 
@@ -56,7 +70,15 @@ class App extends Component {
 	{
 		this.setState({physicalPersonModalIsOpen : false})
 	}
+	closePropertyListModal() 
+	{
+		this.setState({propertyListDialogIsOpen : false})
+	}
 	closePropertyModal() 
+	{
+		this.setState({propertyModalIsOpen : false})
+	}
+	closeDemoDialog() 
 	{
 		this.setState({propertyModalIsOpen : false})
 	}
@@ -102,9 +124,19 @@ class App extends Component {
 		        }],
 		       
 		};
-
+		let isUserLoaded = true
+		if (this.state.userId === "undefined" || this.state.userId === null) {
+			isUserLoaded = false;
+		}
 	    return (
 	        <div className="App">
+	        <div>
+	        <DemoDialog 
+	        open         = {this.state.demoDialogIsOpen} 
+	        callback     = {this.closeDemoDialog.bind(this)}
+	        userId       = {this.state.userId}
+	        />
+	        </div>
 	        <div key={this.state.propertiesSum.realEstate + this.state.propertiesSum.financial}>
 	        <AddPropertyDialog 
 	        open         = {this.state.propertyModalIsOpen} 
@@ -121,6 +153,14 @@ class App extends Component {
 	        callbackSave = {this.updatePhysicalPersons.bind(this)}
 	        userId       = {this.state.userId}
 	        />
+	        </div>
+	        
+	        <div key={this.state.propertiesSum.realEstate + this.state.propertiesSum.financial +1}>
+	        { isUserLoaded && <PropertyListDialog 
+	        open         = {this.state.propertyListDialogIsOpen} 
+	        callback     = {this.closePropertyListModal.bind(this)}
+	        userId       = {this.state.userId}
+	        /> }
 	        </div>
 	        <div className="mainContainer">
 		        <Grid>
@@ -165,6 +205,7 @@ class App extends Component {
 			 </div>
 			 <BottomBar />
 			 </div>
+			 
 	    );
 	}
 }
