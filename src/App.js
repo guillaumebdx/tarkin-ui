@@ -231,7 +231,7 @@ class App extends Component {
 		        	</Col>
 		        	<Col xs={12} md={6}>
 		        	<MainCard 
-				        title     = "Profil financier" 
+				        title     = "Mes priorités" 
 				        subHeader = "Votre profil d'investisseur"
 				        data      = <Radar data={DataRadarMock} options= {OptionsRadar} />
 				        collapse  = <RadarCollapse 
