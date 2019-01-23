@@ -7,12 +7,12 @@ import { Grid, Row, Col }          from 'react-flexbox-grid';
 import {Doughnut, Radar}           from 'react-chartjs-2';
 import OptionsRadar                from './const/OptionsRadar';
 import OptionsAsset                from './const/OptionsAsset';
-import DataRadarMock               from './Mocks/DataRadarMock';
 import FamilyTree                  from './components/Card/FamilyTree';
 import AddPropertyDialog           from './components/Dialogs/AddPropertyDialog';
 import AddPhysicalPersonDialog     from './components/Dialogs/AddPhysicalPersonDialog';
 import PropertyListDialog          from './components/Dialogs/PropertyListDialog';
 import DemoDialog                  from './components/Dialogs/DemoDialog';
+import RadarCollapse               from './components/Collapse/RadarCollapse';
 
 
 
@@ -29,6 +29,12 @@ class App extends Component {
 				keyModalProperty          : 0,
 				propertyListDialogIsOpen  : false,
 				demoDialogisOpen          : false,
+				successionValue           : 50,
+		    	fiscalityValue 			  : 50, 
+		    	fiscalityIFIValue    	  : 50,
+		    	rentabilityctValue		  : 50,
+		    	rentabilityltValue        : 50,
+		    	retirementValue			  : 50,
 		}
 		
 	}
@@ -100,6 +106,31 @@ class App extends Component {
 		.then(datum => this.setState({ physicalPersons: datum }));
 		this.setState({physicalPersonModalIsOpen : false})
 	}
+	updateSuccessionRadar(value)
+	{
+		this.setState({successionValue : value})
+	}
+	updateFiscalityIrRadar(value)
+	{
+		this.setState({fiscalityValue : value})
+	}
+	updateFiscalityIFIRadar(value)
+	{
+		this.setState({fiscalityIFIValue : value})
+	}
+	updateRentabilityCtRadar(value)
+	{
+		this.setState({rentabilityctValue : value})
+	}
+	updateRentabilityLtRadar(value)
+	{
+		this.setState({rentabilityltValue : value})
+	}
+	updateRetirementRadar(value)
+	{
+		this.setState({retirementValue : value})
+	}
+	
 
 	render() {
 
@@ -128,6 +159,29 @@ class App extends Component {
 		if (this.state.userId === "undefined" || this.state.userId === null) {
 			isUserLoaded = false;
 		}
+		const DataRadarMock = {
+				  labels: ['Succession', 'Fiscalité IR', 'Fiscalité IFI', 'Rentabilité CT', 'Rentabilité LT', 'Retraite',],
+				  datasets: [
+				    {
+				      label: 'Mes priorités',
+				      backgroundColor: 'rgba(255,99,132,0.2)',
+				      borderColor: 'rgba(255,99,132,1)',
+				      pointBackgroundColor: 'rgba(255,99,132,1)',
+				      pointBorderColor: '#fff',
+				      pointHoverBackgroundColor: '#fff',
+				      pointHoverBorderColor: 'rgba(255,99,132,1)',
+				      data: [
+				    	  this.state.successionValue, 
+				    	  this.state.fiscalityValue, 
+				    	  this.state.fiscalityIFIValue, 
+				    	  this.state.rentabilityctValue, 
+				    	  this.state.rentabilityltValue, 
+				    	  this.state.retirementValue,
+				    	  ],
+
+				    }
+				  ]
+				};
 	    return (
 	        <div className="App">
 	        <div>
@@ -180,7 +234,14 @@ class App extends Component {
 				        title     = "Profil financier" 
 				        subHeader = "Votre profil d'investisseur"
 				        data      = <Radar data={DataRadarMock} options= {OptionsRadar} />
-				        collapse  = "Détail de votre profil financier :"
+				        collapse  = <RadarCollapse 
+				                        callbackSuccession    = {this.updateSuccessionRadar.bind(this)} 
+		        	                    callbackFiscalityIr   = {this.updateFiscalityIrRadar.bind(this)} 
+		        						callbackFiscalityIFI  = {this.updateFiscalityIFIRadar.bind(this)}
+		        						callbackRentabilityCt = {this.updateRentabilityCtRadar.bind(this)}
+		        						callbackRentabilityLt = {this.updateRentabilityLtRadar.bind(this)}
+		        						callbackRetirement    = {this.updateRetirementRadar.bind(this)}
+		        	                />
 				    />	
 		        	</Col>
 		        	<Col xs={12} md={6}>
