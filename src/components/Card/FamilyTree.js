@@ -47,13 +47,21 @@ class FamilyTree extends Component
 		
 		const PhysicalPersons = () => {
 		
-			const commonChildrenData = commonChildren.map((item, index) => 
-			<li  key={index}>
-				<div className="treeHover"><Icon fontSize="large">child_care</Icon></div>
-				<div className="treeName white">{item.first_name}</div>
-			</li>
-			
-		);
+			const CommonChildrenData = () => { 
+				return (
+						<li>
+						    <ul>
+						   
+				          {commonChildren.map(item => (
+				          <li key={item.id}>
+					          <div className="treeHover"><Icon fontSize="large">child_care</Icon></div>
+					          <div className="treeName white">{item.first_name}</div>
+				          </li>
+				          ))}
+				          </ul>
+				          </li>
+				);
+			}
 			const cradleChildrenData = cradleChildren.map((item, index) => 
 			<li  key={index}>
 				<div className="treeHover"><Icon fontSize="large">child_care</Icon></div>
@@ -84,15 +92,12 @@ class FamilyTree extends Component
 			</li>
 			
 		);
+			
 			 return (
 					 <div className="tree familyTree">
 						 <ul>
 						 	 {cradleData}
-						     <li>
-						         <ul>
-						 	        {commonChildrenData}
-						         </ul>
-						     </li>
+						 	  {commonChildren.length > 0 && <CommonChildrenData />}
 						 	 {spouseData}
 						 </ul>
 					 </div>
