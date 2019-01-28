@@ -46,7 +46,7 @@ class PropertyListDialog extends Component
 		}
 		const rows = [];
 		this.state.propertyList.map(property => {
-			rows.push(createData(property.isFinancial, property.name, property.type, property.physicalPersonFirstName, property.value, property.returnRate))
+			return rows.push(createData(property.isFinancial, property.name, property.type, property.physicalPersonFirstName, property.value, property.returnRate))
 		})
 
 		return (

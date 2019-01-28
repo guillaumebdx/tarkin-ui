@@ -46,7 +46,7 @@ class App extends Component {
 		let userId       = searchParams.get('user');
 
 		if (userId === null) {
-			this.setState({demoDialogIsOpen: true})
+			this.setState({demoDialogisOpen: true})
 		}
 		this.setState({userId : userId});
 		fetch("http://tarkin.harari.io/api/user/" + userId + "/physical-persons")
@@ -182,16 +182,17 @@ class App extends Component {
 				    }
 				  ]
 				};
+
 	    return (
 	        <div className="App">
-	        <div>
+	        <div key="demo">
 	        <DemoDialog 
-	        open         = {this.state.demoDialogIsOpen} 
+	        open         = {this.state.demoDialogisOpen} 
 	        callback     = {this.closeDemoDialog.bind(this)}
 	        userId       = {this.state.userId}
 	        />
 	        </div>
-	        <div key={this.state.propertiesSum.realEstate + this.state.propertiesSum.financial}>
+	        <div key={isNaN(this.state.propertiesSum.realEstate + this.state.propertiesSum.financial) ? 1 : this.state.propertiesSum.realEstate + this.state.propertiesSum.financial}>
 	        <AddPropertyDialog 
 	        open         = {this.state.propertyModalIsOpen} 
 	        persons      = {this.state.physicalPersons}
@@ -199,7 +200,7 @@ class App extends Component {
 	        callbackSave = {this.updateSumProperties.bind(this)}
 	        />
 	        </div>
-	        <div>
+	        <div key="physicalPerson">
 	        <AddPhysicalPersonDialog 
 	        open         = {this.state.physicalPersonModalIsOpen} 
 	        persons      = {this.state.physicalPersons}
@@ -209,14 +210,14 @@ class App extends Component {
 	        />
 	        </div>
 	        
-	        <div key={this.state.propertiesSum.realEstate + this.state.propertiesSum.financial +1}>
+	        <div key={isNaN(this.state.propertiesSum.realEstate + this.state.propertiesSum.financial +1) ? 2 : this.state.propertiesSum.realEstate + this.state.propertiesSum.financial +1}>
 	        { isUserLoaded && <PropertyListDialog 
 	        open         = {this.state.propertyListDialogIsOpen} 
 	        callback     = {this.closePropertyListModal.bind(this)}
 	        userId       = {this.state.userId}
 	        /> }
 	        </div>
-	        <div className="mainContainer">
+	        <div key="gridCard" className="mainContainer">
 		        <Grid>
 		            <Row around="md">
 		            <Col xs={12} md={6}>

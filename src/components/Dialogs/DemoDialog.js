@@ -38,7 +38,7 @@ class DemoDialog extends Component
 			}))(MuiDialogContent);
 		const rows = [];
 		this.state.users.map(user => {
-			rows.push(user.id)
+			return rows.push(user.id)
 		})
 		const Users = () => {
 		const rows  = this.state.users.map((row, index) => {
@@ -58,9 +58,9 @@ class DemoDialog extends Component
 
 		return (
 				<Dialog 
-				aria-labelledby="responsive-dialog-title"
-				open     ={this.props.open} 
-				key = "DemoDialog"
+				aria-labelledby= "responsive-dialog-title"
+				open           = {this.props.open} 
+				key            = "DemoDialog"
 				>
 				<MuiDialogTitle disableTypography className="modalTitle">
 				<span className="modalTitle">

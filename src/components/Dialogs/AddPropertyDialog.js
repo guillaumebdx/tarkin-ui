@@ -67,11 +67,7 @@ class AddPropertyDialog extends Component
 
 		return false;
 	}
-	componentDidMount()
-	{
 
-	
-	}
 	componentWillMount()
 	{
 		fetch("http://tarkin.harari.io/api/properties/financial")
@@ -86,10 +82,10 @@ class AddPropertyDialog extends Component
 		.then(response => response.json())
 		.then(data => this.setState({ acquisitionTypeList: data }));
 	}
-	 componentWillUnmount() 
-	 {
-	     this._isMounted = false;
-     }
+//	 componentWillUnmount() 
+//	 {
+//	     this._isMounted = false;
+//     }
 	componentWillReceiveProps(nextProps)
 	{
 		let spouses = [];

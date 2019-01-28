@@ -116,9 +116,8 @@ class AddPhysicalPersonDialog extends Component
 		this.setState({
 	        [name]: event.target.value,
 	    });
-
 		if (name === "familyPosition") {
-			this.state.familyPositionList.map(position => {
+			this.state.familyPositionList.forEach(position => {
 				if (position.identifier === event.target.value) {
 					this.setState({
 				        familyPositionId : position.id,
@@ -156,7 +155,7 @@ class AddPhysicalPersonDialog extends Component
 			  let parentIds = [];
 			  
 			  if (this.state.childOf !== "" && this.state.childOf === "0") {
-				  this.state.spouses.map(spouse => {
+				  this.state.spouses.forEach(spouse => {
 				      parentIds.push(spouse.id);
 				  });
 			  } else if (this.state.childOf !== "" && this.state.childOf !== "0") {
