@@ -93,11 +93,10 @@ class AddPropertyDialog extends Component
 			if (person.family_position === 'Conjoint') {
 				spouses.push(person);
 			}
-			return null;
+			return this.setState({spouses:spouses});
 		})
 		if(spouses.length === 2) {
 			this.setState({isSingle: false})
-			this.setState({spouses:spouses})
 		} else {
 			this.setState({isSingle: true})
 		}
@@ -246,6 +245,8 @@ class AddPropertyDialog extends Component
 		if (this.state.spouses.length > 0) {
 			spouse1 = this.state.spouses[0].first_name
 			idSpouse1 = this.state.spouses[0].id
+		}
+		if (this.state.spouses.length > 1) {
 			spouse2 = this.state.spouses[1].first_name
 			idSpouse2 = this.state.spouses[1].id
 		}
@@ -254,11 +255,16 @@ class AddPropertyDialog extends Component
 				id   : idSpouse1,
 				name : "Acquis par " + spouse1 
 			},
-			{
-				id   :  idSpouse2,
-				name : "Acquis par " + spouse2
-			}
+			
 		]
+		if (this.state.spouses.length > 1) {
+			OwnerListCommonMarriage.push(
+					{
+						id   :  idSpouse2,
+						name : "Acquis par " + spouse2
+					}
+			)
+		}
 		
 		const PropertyOwner = () => {
 			return (
