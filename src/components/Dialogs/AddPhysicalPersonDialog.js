@@ -97,11 +97,11 @@ class AddPhysicalPersonDialog extends Component
 			if (person.family_position === 'Conjoint') {
 				spouses.push(person);
 			}
-			return null;
+			return this.setState({spouses:spouses})
 		})
 		if(spouses.length === 2) {
 			this.setState({isSingle: false})
-			this.setState({spouses:spouses})
+
 		} else {
 			this.setState({isSingle: true})
 		}
@@ -207,10 +207,11 @@ class AddPhysicalPersonDialog extends Component
 		let spouse2 = '';
 		let idSpouse1 = '';
 		let idSpouse2 = '';
-
 		if (this.state.spouses.length > 0) {
 			spouse1 = this.state.spouses[0].first_name
 			idSpouse1 = this.state.spouses[0].id
+		}
+		if (this.state.spouses.length > 1) {
 			spouse2 = this.state.spouses[1].first_name
 			idSpouse2 = this.state.spouses[1].id
 		}
@@ -224,6 +225,11 @@ class AddPhysicalPersonDialog extends Component
 				name :  spouse2
 			}
 		]
+		const OptionCouple = () => {
+			return (
+				 <option key="couple" value = "0">Couple</option>	
+			)
+		}
 		
 		const ChildOf = () => {
 			return (
@@ -242,7 +248,7 @@ class AddPhysicalPersonDialog extends Component
 			          variant="outlined"
 			        >
 					   <option key="0" value = ""></option>
-					   <option key="couple" value = "0">Couple</option>
+					   {spouse2 !== '' && <OptionCouple />}
 			          {OwnerListCommonMarriage.map(option => (
 			            <option key={option.id} value={option.id}>
 			              {option.name}
