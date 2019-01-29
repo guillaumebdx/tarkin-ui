@@ -220,11 +220,16 @@ class AddPhysicalPersonDialog extends Component
 				id   : idSpouse1,
 				name : spouse1 
 			},
-			{
-				id   :  idSpouse2,
-				name :  spouse2
-			}
+
 		]
+		if (this.state.spouses.length > 1) {
+			OwnerListCommonMarriage.push(
+					{
+						id   :  idSpouse2,
+						name :  spouse2
+					}
+			)
+		}
 		const OptionCouple = () => {
 			return (
 				 <option key="couple" value = "0">Couple</option>	
