@@ -133,9 +133,6 @@ class AddPropertyDialog extends Component
 			  if (this.state.amount === '') {
 				  return this.setState({isErrorValue: true})
 			  }
-			  if (this.state.propertyOwner === "0" || typeof this.state.propertyOwner === "undefined") {
-				  return this.setState({isErrorPropertyOwner: true})
-			  }
 			  if (this.state.acquirementTypeId === "0" || typeof this.state.acquirementTypeId === "undefined") {
 				  return this.setState({isErrorAcquirementType: true})
 			  }
@@ -148,11 +145,19 @@ class AddPropertyDialog extends Component
 			  if (propertyType === "0" || typeof propertyType === "undefined") {
 				  return this.setState({isErrorPropertyType: true})
 			  }
-			  
+			  let propertyOwner = this.state.propertyOwner
+			  if(this.state.propertyOwner === "0" || typeof this.state.propertyOwner === "undefined") {
+				  console.log(this.props.persons)
+				  this.props.persons.forEach(function (value) {
+					  if (value.cradle === true) {
+						  propertyOwner = value.id;
+					  }
+				  })
+			  }
 
 			 let AddPropertyData = 
 				 {
-					 personId          : this.state.propertyOwner,
+					 personId          : propertyOwner,
 					 name              : this.state.name,
 					 value             : this.state.amount,
 					 returnRate        : this.state.rate === null ? 0 : this.state.rate,
@@ -317,7 +322,11 @@ class AddPropertyDialog extends Component
 			        </TextField>
 			);
 		}
-		
+		let displayOwner = false;
+		if (this.state.propertyType !== "" && this.state.isSingle === false) {
+			displayOwner = true;
+		}
+
 		return (
 				<Dialog 
 				aria-labelledby="responsive-dialog-title"
@@ -422,7 +431,7 @@ class AddPropertyDialog extends Component
 				{this.state.propertyType === "checkedFinancial" && <FinancialList />}
 				{this.state.propertyType === "checkedRealEstate" && <RealEstateList />}
 				<div>
-					{this.state.propertyType !== "" && <PropertyOwner /> }
+					{displayOwner === true && <PropertyOwner /> }
 				</div>
 				<div>
 					{this.state.propertyType !== ""  && <AcquirementTypeList /> }
