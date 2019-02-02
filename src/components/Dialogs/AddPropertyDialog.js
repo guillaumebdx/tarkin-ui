@@ -134,7 +134,16 @@ class AddPropertyDialog extends Component
 				  return this.setState({isErrorValue: true})
 			  }
 			  if (this.state.acquirementTypeId === "0" || typeof this.state.acquirementTypeId === "undefined") {
-				  return this.setState({isErrorAcquirementType: true})
+				  let lawPosition = "";
+					this.props.persons.forEach(function(value) {
+						if (value.cradle === true) {
+							lawPosition = value.law_position;
+						}
+					})
+					if (lawPosition === "common-community") {
+						return this.setState({isErrorAcquirementType: true})
+					}
+				  
 			  }
 			  let propertyType = '';
 			  if (this.state.isFinancial) {
@@ -327,6 +336,17 @@ class AddPropertyDialog extends Component
 			displayOwner = true;
 		}
 
+		let lawPosition = "";
+		this.props.persons.forEach(function(value) {
+			if (value.cradle === true) {
+				lawPosition = value.law_position;
+			}
+		})
+		let displayAcquirementType = false;
+		if (displayOwner === true && lawPosition === "common-community") {
+			displayAcquirementType = true;
+		}
+
 		return (
 				<Dialog 
 				aria-labelledby="responsive-dialog-title"
@@ -434,7 +454,7 @@ class AddPropertyDialog extends Component
 					{displayOwner === true && <PropertyOwner /> }
 				</div>
 				<div>
-					{this.state.propertyType !== ""  && <AcquirementTypeList /> }
+					{displayAcquirementType === true  && <AcquirementTypeList /> }
 				</div>
 				<div className="propertiesIcons">
 					{this.state.propertyType !== ""  && <PlusButton context="plusButton" callback = {this.plusClicked.bind(this)} /> }	
