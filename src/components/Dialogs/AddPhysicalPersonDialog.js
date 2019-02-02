@@ -27,6 +27,7 @@ class AddPhysicalPersonDialog extends Component
 				spouseLaw       : "",
 				childOf         : "",
 				relatedTo       : "",
+				spouseLaw       : "",
 				selectedDate    : new Date(),
 		}
 		this.handleChange = this.handleChange.bind(this)
@@ -121,6 +122,7 @@ class AddPhysicalPersonDialog extends Component
 				if (position.identifier === event.target.value) {
 					this.setState({
 				        familyPositionId : position.id,
+				        familyPositionIdentifier: position.identifier
 				    });
 				}
 			})
@@ -165,7 +167,7 @@ class AddPhysicalPersonDialog extends Component
 				  parentIds.push(this.state.relatedTo)
 			  }
 			  
-
+			  
 			 let PhysicalPersonData = 
 				 {
 					 userId            : this.props.userId,
@@ -175,9 +177,11 @@ class AddPhysicalPersonDialog extends Component
 					 birthDate         : dateFormat(this.state.selectedDate, "isoDateTime"),
 					 familyPositionId  : this.state.familyPositionId,
 					 parentIds         : parentIds,
+					 lawPositionId     : this.state.spouseLaw,
+					 positionIdentifier : this.state.familyPositionIdentifier,
 			 
 				 }
-
+			 console.log(PhysicalPersonData)
 			 const request = async () => {
 				  await fetch('http://tarkin.harari.io/api/new-person', {
 				    method: 'POST',
@@ -334,7 +338,7 @@ class AddPhysicalPersonDialog extends Component
 			        >
 					   <option key="0" value = ""></option>
 			          {this.state.spouseLaws.map(option => (
-			            <option key={option.id} value={option.identifier}>
+			            <option key={option.id} value={option.id}>
 			              {option.name}
 			            </option>
 			          ))}
