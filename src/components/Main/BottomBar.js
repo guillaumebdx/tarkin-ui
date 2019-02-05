@@ -9,6 +9,7 @@ import Fab from '@material-ui/core/Fab';
 import MenuIcon from '@material-ui/icons/Menu';
 import AddIcon from '@material-ui/icons/Add';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import FaceIcon from '@material-ui/icons/Face';
 
 const styles = theme => ({
   text: {
@@ -55,7 +56,7 @@ function BottomBar(props) {
             <MenuIcon />
           </IconButton>
           <Fab color="secondary" aria-label="Add" className={classes.fabButton}>
-            <AddIcon />
+            <FaceIcon style={{ fontSize: 40 }} />
           </Fab>
           <div>
             <IconButton color="inherit">
