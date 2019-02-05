@@ -40,13 +40,13 @@ class PropertyListDialog extends Component
 			  },
 			}))(MuiDialogContent);
 		let id = 0;
-		function createData(isFinancial, name, type, owner, value, rate) {
+		function createData(isFinancial, name, type, owner, value, rate, feelingValue) {
 		  id += 1;
-		  return { id, isFinancial, name, type, owner, value, rate };
+		  return { id, isFinancial, name, type, owner, value, rate, feelingValue };
 		}
 		const rows = [];
 		this.state.propertyList.map(property => {
-			return rows.push(createData(property.isFinancial, property.name, property.type, property.physicalPersonFirstName, property.value, property.returnRate))
+			return rows.push(createData(property.isFinancial, property.name, property.type, property.physicalPersonFirstName, property.value, property.returnRate, property.feelingValue))
 		})
 
 		return (

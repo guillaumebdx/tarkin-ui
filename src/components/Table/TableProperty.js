@@ -52,6 +52,7 @@ function CustomizedTable(props) {
             <CustomTableCell align="left">Propriétaire</CustomTableCell>
             <CustomTableCell align="right">Montant</CustomTableCell>
             <CustomTableCell align="right">Rendement</CustomTableCell>
+            <CustomTableCell align="right">Sentiment</CustomTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -67,6 +68,7 @@ function CustomizedTable(props) {
               <CustomTableCell align="left">{row.owner}</CustomTableCell>
               <CustomTableCell align="right">{row.value}</CustomTableCell>
               <CustomTableCell align="right">{row.rate}</CustomTableCell>
+              <CustomTableCell align="right">{row.feelingValue}</CustomTableCell>
             </TableRow>
           ))}
         </TableBody>

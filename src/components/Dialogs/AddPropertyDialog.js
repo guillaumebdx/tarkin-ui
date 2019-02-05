@@ -17,6 +17,8 @@ import DateFnsUtils                from '@date-io/date-fns';
 import { MuiPickersUtilsProvider } from 'material-ui-pickers';
 import { DatePicker }              from 'material-ui-pickers';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import Slider               from '@material-ui/lab/Slider';
+import Typography           from '@material-ui/core/Typography';
 const dateFormat = require('dateformat');
 
 class AddPropertyDialog extends Component
@@ -27,6 +29,7 @@ class AddPropertyDialog extends Component
 		super(props)
 		this.state = {
 				realEstate        : new Map(),
+				feelingValue      : 5,
 				name              : '',
 				amount            : null,
 				rate              : null, 
@@ -41,6 +44,9 @@ class AddPropertyDialog extends Component
 	shouldComponentUpdate(nextProps, nextState)
 	{
 		if (nextState.propertyType !== this.state.propertyType) {
+			return true;
+		}
+		if (nextState.feelingValue !== this.state.feelingValue) {
 			return true;
 		}
 		if (nextProps.open !== this.props.open) {
@@ -124,6 +130,10 @@ class AddPropertyDialog extends Component
 		    }
 	  }
 	  
+	  handleChangeFeelingValue = (event, value) => {
+		      this.setState({ feelingValue: value });
+		};
+	  
   
 	  plusClicked = (context) => {
 		  if(context === "plusButton" ) {
@@ -173,6 +183,7 @@ class AddPropertyDialog extends Component
 					 propertyTypeId    : propertyType,
 					 acquirementTypeId : this.state.acquirementTypeId,
 					 acquirementDate   : dateFormat(this.state.selectedDate, "isoDateTime"),
+					 feelingValue      : this.state.feelingValue,
 					 
 				 }
 			 const request = async () => {
@@ -242,6 +253,36 @@ class AddPropertyDialog extends Component
 			              {option.name}
 			            </option>
 			          ))}
+			        </TextField>
+			);
+		}
+		const SliderFeeling = () => { 
+			return (
+					<TextField
+					  id="outlined-select-currency-native"
+			          select
+			          label="Rapport sentimental"
+			          onChange ={this.handleChange('feelingValue')}
+					  value = {this.state.feelingValue}
+			          SelectProps={{
+			            native: true,
+			          }}
+			          margin="normal"
+			          variant="outlined"
+			          fullWidth
+			        >
+					   <option key="0" value = "0">0</option>
+					   <option key="1" value = "1">1</option>
+					   <option key="2" value = "2">2</option>
+					   <option key="3" value = "3">3</option>
+					   <option key="4" value = "4">4</option>
+					   <option key="5" value = "5">5</option>
+					   <option key="6" value = "6">6</option>
+					   <option key="7" value = "7">7</option>
+					   <option key="8" value = "8">8</option>
+					   <option key="9" value = "9">9</option>
+					   <option key="10" value = "10">10</option>
+			          
 			        </TextField>
 			);
 		}
@@ -427,6 +468,9 @@ class AddPropertyDialog extends Component
 			            value       = {this.state.selectedDate}
 					    onChange    = {this.handleDateChange} />
 				</MuiPickersUtilsProvider>
+				</div>
+				<div>
+				<SliderFeeling />
 				</div>
 				<div className="propertiesIcons">
 				<RadioGroup
