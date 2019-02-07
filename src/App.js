@@ -224,6 +224,9 @@ class App extends Component {
 		        	<MainCard 
 		        		title     = "Patrimoine" 
 		        		subHeader = "Composition du patrimoine"
+		        		menu1     = "Ajouter une propriété"
+		        		menu2     = "Liste des propriétés"
+		        		menu3     = "Assistant de création"
 		        		data      = <Doughnut data={DataAssetMock} options = {OptionsAsset} />
 		        		collapse  = "Détail de votre patrimoine financier :"
 		        		context   = "properties"
@@ -234,6 +237,7 @@ class App extends Component {
 		        	<MainCard 
 				        title     = "Mes priorités" 
 				        subHeader = "Votre profil d'investisseur"
+				        menu1     = "Assistant profil"
 				        data      = <Radar data={DataRadarMock} options= {OptionsRadar} />
 				        collapse  = <RadarCollapse 
 				                        callbackSuccession    = {this.updateSuccessionRadar.bind(this)} 
@@ -248,6 +252,9 @@ class App extends Component {
 		        	<Col xs={12} md={6}>
 				    <MainCard 
 			        	title     = "Famille" 
+			        	menu1     = "Ajouter une personne"
+				        menu2     = "Liste des personnes"
+				        menu3     = "Assistant de création"
 			        	subHeader = {"Composition de la famille " } 
 				    	data      = <FamilyTree personsData =  {this.state.physicalPersons} />
 			        	collapse  = "Détail de la composition :"
@@ -260,6 +267,7 @@ class App extends Component {
 					        title     = "Diversification" 
 					        subHeader = "Diversification de votre patrimoine"
 					        collapse  = "Détail de la diversification :"
+					        menu1     = "Assistant"
 					    />
 					 </Col>
 					 </Row>

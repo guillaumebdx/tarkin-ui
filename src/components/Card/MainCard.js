@@ -12,6 +12,8 @@ import AddIcon from '@material-ui/icons/Add';
 import ListIcon from '@material-ui/icons/List';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
 
 const styles = theme => ({
 
@@ -38,8 +40,19 @@ class RecipeReviewCard extends React.Component {
 	constructor(props) {
 		super(props)
 		this.handleClick = this.handleClick.bind(this);
+		this.state = {
+				anchorEl: null,
+			    mobileMoreAnchorEl: null,
+		}
 	}
-	
+  handleProfileMenuOpen = event => {
+	    this.setState({ anchorEl: event.currentTarget });
+	  };
+
+	  handleMenuClose = () => {
+	    this.setState({ anchorEl: null });
+	  };
+
 	handleClick = (context) => {
 	    if (context === "properties") {
 	    	this.props.callback("modalAddProperties");
@@ -61,12 +74,36 @@ class RecipeReviewCard extends React.Component {
 
   render() {
     const { classes } = this.props;
+    const { anchorEl } = this.state;
+    const isMenuOpen = Boolean(anchorEl);
+    
+    const RenderMenu = () => {
+    	
+    	return (
+    	      <Menu
+    	        anchorEl={anchorEl}
+    	        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+    	        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+    	        open={isMenuOpen}
+    	        onClose={this.handleMenuClose}
+    	      >
+    	        {this.props.menu1 && <MenuItem onClick={this.handleMenuClose}>{this.props.menu1} </MenuItem>}
+    	        {this.props.menu2 && <MenuItem onClick={this.handleMenuClose}>{this.props.menu2}</MenuItem>}
+    	        {this.props.menu3 && <MenuItem onClick={this.handleMenuClose}>{this.props.menu3}</MenuItem>}
+    	      </Menu>
+    	      )
+    }
 
     return (
       <Card className={"mainCard " + classes.card}>
         <CardHeader
           action={
-            <IconButton>
+            <IconButton
+            aria-owns={isMenuOpen ? 'material-appbar' : undefined}
+            aria-haspopup="true"
+            onClick={this.handleProfileMenuOpen}
+            color="inherit"
+            >
             <span className="white"><MoreVertIcon /></span>
             </IconButton>
           }
@@ -74,6 +111,7 @@ class RecipeReviewCard extends React.Component {
           subheader=<span className="white">{this.props.subHeader}</span>
         />
         <CardContent>
+	      <RenderMenu />
         {this.props.data}
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
