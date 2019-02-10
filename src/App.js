@@ -11,6 +11,7 @@ import FamilyTree                  from './components/Card/FamilyTree';
 import AddPropertyDialog           from './components/Dialogs/AddPropertyDialog';
 import AddPhysicalPersonDialog     from './components/Dialogs/AddPhysicalPersonDialog';
 import PropertyListDialog          from './components/Dialogs/PropertyListDialog';
+import FamilyListDialog            from './components/Dialogs/FamilyListDialog';
 import DemoDialog                  from './components/Dialogs/DemoDialog';
 import RadarCollapse               from './components/Collapse/RadarCollapse';
 
@@ -28,6 +29,7 @@ class App extends Component {
 				physicalPersonModalIsOpen : false, 
 				keyModalProperty          : 0,
 				propertyListDialogIsOpen  : false,
+				familyListDialogIsOpen    : false,
 				demoDialogisOpen          : false,
 				successionValue           : 50,
 		    	fiscalityValue 			  : 50, 
@@ -68,9 +70,14 @@ class App extends Component {
 		
 		
 	}
-	openPhysicalPersonModal() 
+	openPhysicalPersonModal(context) 
 	{
-		this.setState({physicalPersonModalIsOpen : true})
+		if (context === "modalListfamily") {
+			this.setState({familyListDialogIsOpen : true})
+		}
+		if (context === "modalAddPhysicalPerson") {
+			this.setState({physicalPersonModalIsOpen : true})
+		}
 	}
 	closePhysicalPersonModal() 
 	{
@@ -79,6 +86,10 @@ class App extends Component {
 	closePropertyListModal() 
 	{
 		this.setState({propertyListDialogIsOpen : false})
+	}
+	closeFamilyListModal() 
+	{
+		this.setState({familyListDialogIsOpen : false})
 	}
 	closePropertyModal() 
 	{
@@ -212,10 +223,15 @@ class App extends Component {
 	        
 	        <div key={isNaN(this.state.propertiesSum.realEstate + this.state.propertiesSum.financial +1) ? 2 : this.state.propertiesSum.realEstate + this.state.propertiesSum.financial +1}>
 	        { isUserLoaded && <PropertyListDialog 
-	        open         = {this.state.propertyListDialogIsOpen} 
-	        callback     = {this.closePropertyListModal.bind(this)}
-	        userId       = {this.state.userId}
+		        open         = {this.state.propertyListDialogIsOpen} 
+		        callback     = {this.closePropertyListModal.bind(this)}
+		        userId       = {this.state.userId}
 	        /> }
+	        { isUserLoaded && <FamilyListDialog 
+		        open         = {this.state.familyListDialogIsOpen} 
+		        callback     = {this.closeFamilyListModal.bind(this)}
+		        userId       = {this.state.userId}
+		    /> }
 	        </div>
 	        <div key="gridCard" className="mainContainer">
 		        <Grid>

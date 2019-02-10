@@ -65,6 +65,9 @@ class RecipeReviewCard extends React.Component {
 	    if (context === "properties") {
 	    	this.props.callback("modalListProperties");
 	    }
+	    if (context === "physicalPerson") {
+	    	this.props.callback("modalListfamily");
+	    }
 	  }
   state = { expanded: false };
 
