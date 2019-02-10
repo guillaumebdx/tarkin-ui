@@ -36,7 +36,6 @@ class PropertyListDialog extends Component
 		const DialogContent = withStyles(theme => ({
 			  root: {
 			    margin: 0,
-			    padding: theme.spacing.unit ,
 			  },
 			}))(MuiDialogContent);
 		let id = 0;
@@ -46,7 +45,7 @@ class PropertyListDialog extends Component
 		}
 		const rows = [];
 		this.state.propertyList.map(property => {
-			return rows.push(createData(property.isFinancial, property.name, property.type, property.physicalPersonFirstName, property.value, property.returnRate, property.feelingValue))
+			return rows.push(createData(property.isFinancial, property.name, property.type, property.physicalPersonFirstName, property.value + " €", property.returnRate + " %", property.feelingValue))
 		})
 
 		return (
@@ -68,7 +67,7 @@ class PropertyListDialog extends Component
 			        </IconButton>
 		        </span>
 				</MuiDialogTitle>
-				 <DialogContent key="Content">
+				 <DialogContent key="Content" className = "tarkinStyleContentDialog">
 					<TableProperty rows={rows} />
 				 </DialogContent>
 				</Dialog>

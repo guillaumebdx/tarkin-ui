@@ -36,7 +36,6 @@ class FamilyListDialog extends Component
 		const DialogContent = withStyles(theme => ({
 			  root: {
 			    margin: 0,
-			    padding: theme.spacing.unit ,
 			  },
 			}))(MuiDialogContent);
 		let id = 0;
@@ -68,7 +67,7 @@ class FamilyListDialog extends Component
 			        </IconButton>
 		        </span>
 				</MuiDialogTitle>
-				 <DialogContent key="Content">
+				 <DialogContent key="Content" className = "tarkinStyleContentDialog">
 					<TableFamily rows={rows} />
 				 </DialogContent>
 				</Dialog>

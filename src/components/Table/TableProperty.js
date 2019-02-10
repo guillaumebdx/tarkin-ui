@@ -9,6 +9,7 @@ import TableRow           from '@material-ui/core/TableRow';
 import Paper              from '@material-ui/core/Paper';
 import Home               from '@material-ui/icons/Home';
 import EuroSymbol         from '@material-ui/icons/EuroSymbol';
+import HeartIcon          from '@material-ui/icons/FavoriteBorder';
 
 const CustomTableCell = withStyles(theme => ({
   head: {
@@ -68,7 +69,7 @@ function CustomizedTable(props) {
               <CustomTableCell align="left">{row.owner}</CustomTableCell>
               <CustomTableCell align="right">{row.value}</CustomTableCell>
               <CustomTableCell align="right">{row.rate}</CustomTableCell>
-              <CustomTableCell align="right">{row.feelingValue}</CustomTableCell>
+              <CustomTableCell align="right">{row.feelingValue} <HeartIcon fontSize="small" color="#221266" /> </CustomTableCell>
             </TableRow>
           ))}
         </TableBody>

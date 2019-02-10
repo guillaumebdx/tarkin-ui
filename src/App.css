@@ -59,3 +59,6 @@ body {
 .slider {
 	width: 400px !important;
 }
+.tarkinStyleContentDialog {
+	background-color: rgb(101,115,195);
+}
