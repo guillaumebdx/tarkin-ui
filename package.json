@@ -13,6 +13,7 @@
     "dateformat": "^3.0.3",
     "material-ui-pickers": "^2.0.4",
     "react": "^16.6.3",
+    "react-animated-number": "^0.4.4",
     "react-chartjs-2": "^2.7.4",
     "react-dom": "^16.6.3",
     "react-flexbox-grid": "^2.1.2",
