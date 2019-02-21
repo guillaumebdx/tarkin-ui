@@ -14,6 +14,7 @@ import PropertyListDialog          from './components/Dialogs/PropertyListDialog
 import FamilyListDialog            from './components/Dialogs/FamilyListDialog';
 import DemoDialog                  from './components/Dialogs/DemoDialog';
 import RadarCollapse               from './components/Collapse/RadarCollapse';
+import InheritCollapse             from './components/Collapse/InheritCollapse';
 
 
 
@@ -24,7 +25,8 @@ class App extends Component {
 		super();
 		this.state = {
 				physicalPersons           : [],
-				propertiesSum             : [],
+                propertiesSum             : [],
+                inheritData               : [],
 				propertyModalIsOpen       : false, 
 				physicalPersonModalIsOpen : false, 
 				keyModalProperty          : 0,
@@ -57,7 +59,14 @@ class App extends Component {
 		
 		fetch("http://tarkin.harari.io/api/user/" + userId + "/properties/sum")
 		.then(response => response.json())
-		.then(data => this.setState({ propertiesSum: data }));
+        .then(data => this.setState({ propertiesSum: data }));
+        if (userId !== null) {
+            fetch("http://tarkin.harari.io/api/inherits/user/" + userId)
+            .then(response => response.json())
+            .then(data => this.setState({ inheritData: data }));
+        }
+        
+
 	}
 	openPropertyModal(context) 
 	{
@@ -254,15 +263,15 @@ class App extends Component {
 				        title     = "Mes priorités" 
 				        subHeader = "Votre profil d'investisseur"
 				        menu1     = "Assistant profil"
-				        data      = <Radar data={DataRadarMock} options= {OptionsRadar} />
-				        collapse  = <RadarCollapse 
+				        data      = {<Radar data={DataRadarMock} options= {OptionsRadar} />}
+				        collapse  = {<RadarCollapse 
 				                        callbackSuccession    = {this.updateSuccessionRadar.bind(this)} 
 		        	                    callbackFiscalityIr   = {this.updateFiscalityIrRadar.bind(this)} 
 		        						callbackFiscalityIFI  = {this.updateFiscalityIFIRadar.bind(this)}
 		        						callbackRentabilityCt = {this.updateRentabilityCtRadar.bind(this)}
 		        						callbackRentabilityLt = {this.updateRentabilityLtRadar.bind(this)}
 		        						callbackRetirement    = {this.updateRetirementRadar.bind(this)}
-		        	                />
+		        	                />}
 				    />	
 		        	</Col>
 		        	<Col xs={12} md={6}>
@@ -272,8 +281,8 @@ class App extends Component {
 				        menu2     = "Liste des personnes"
 				        menu3     = "Assistant de création"
 			        	subHeader = {"Composition de la famille " } 
-				    	data      = <FamilyTree personsData =  {this.state.physicalPersons} />
-			        	collapse  = "Détail de la composition :"
+				    	data      = {<FamilyTree personsData =  {this.state.physicalPersons} />}
+			        	collapse  = {<InheritCollapse inheritData = {this.state.inheritData} />}
 			        	context   = "physicalPerson"
 			        	callback = {this.openPhysicalPersonModal.bind(this)}
 			        />

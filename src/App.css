@@ -5,10 +5,22 @@ body {
 	display: flex;
 	
 }
+.spaceBetween {
+	justify-content: space-between;
+}
+.marginBottom {
+	margin-bottom: 10px;
+}
+.littlePadding {
+	padding-left: 5px;
+}
 
 .mainCard {
 	background-color: #221266 !important;
 	margin: 26px !important;
+}
+.width50 {
+	width: 75%;
 }
 .mainContainer {
 	margin-bottom: 50px;
