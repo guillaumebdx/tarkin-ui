@@ -114,7 +114,14 @@ class App extends Component {
 		let searchParams = new URLSearchParams(url.search);
 		fetch("http://tarkin.harari.io/api/user/" + searchParams.get('user') + "/properties/sum")
 		.then(response => response.json())
-		.then(datum => this.setState({ propertiesSum: datum }));
+        .then(datum => this.setState({ propertiesSum: datum }));
+        let userId = searchParams.get('user');
+        if (userId !== null) {
+            fetch("http://tarkin.harari.io/api/inherits/user/" + userId)
+            .then(response => response.json())
+            .then(data => this.setState({ inheritData: data }));
+        }
+
 		this.setState({propertyModalIsOpen : false})
 	}
 	updatePhysicalPersons()
@@ -123,7 +130,14 @@ class App extends Component {
 		let searchParams = new URLSearchParams(url.search);
 		fetch("http://tarkin.harari.io/api/user/" + searchParams.get('user') + "/physical-persons")
 		.then(response => response.json())
-		.then(datum => this.setState({ physicalPersons: datum }));
+        .then(datum => this.setState({ physicalPersons: datum }));
+        let userId = searchParams.get('user');
+        if (userId !== null) {
+            fetch("http://tarkin.harari.io/api/inherits/user/" + userId)
+            .then(response => response.json())
+            .then(data => this.setState({ inheritData: data }));
+        }
+
 		this.setState({physicalPersonModalIsOpen : false})
 	}
 	updateSuccessionRadar(value)
