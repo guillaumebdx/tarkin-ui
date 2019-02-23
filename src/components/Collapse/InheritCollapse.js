@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import InheritExplanation from '../Dialogs/InheritExplanation';
-import AnimatedNumber from 'react-animated-number';
+import CountUp from 'react-countup';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
@@ -40,13 +40,11 @@ class InheritCollapse extends Component
                     <Card className="backgroundPrimaryColor numberCard">
                     <CardHeader title="Nombre d'héritiers" className="numberHeader" />
                     <CardContent>
-                        <AnimatedNumber component="text" value={this.props.inheritData.heirs.length}
-                            style={{
-                                transition: '0.8s ease-out',
-                                fontSize: 48,
-                            }}
-                            stepPrecision={0}
-                            duration={100}
+                        <CountUp 
+                            className = "bigNumber"
+                            start     = {0}
+                            end       = {this.props.inheritData.heirs.length} 
+                            useEasing = {true}                    
                         /> 
                     </CardContent>
                     </Card>
@@ -54,13 +52,14 @@ class InheritCollapse extends Component
                     <Card className="backgroundPrimaryColor numberCard">
                     <CardHeader title="Montant total" className="numberHeader" />
                     <CardContent>
-                        <AnimatedNumber component="text" value={this.props.inheritData.totalAmount}
-                            style={{
-                                transition: '0.8s ease-out',
-                                fontSize: 48,
-                            }}
-                            stepPrecision={0}
-                            duration={300}
+                        <CountUp 
+                            className = "bigNumber"
+                            start     = {0}
+                            end       = {this.props.inheritData.totalAmount}   
+                            separator = " "     
+                            suffix    = " €"     
+                            duration  = {1.5} 
+                            useEasing = {true}         
                         /> 
                     </CardContent>
                     </Card>
@@ -68,27 +67,29 @@ class InheritCollapse extends Component
                     <Card className="backgroundPrimaryColor numberCard">
                     <CardHeader title="Abattements" className="numberHeader" />
                     <CardContent>
-                        <AnimatedNumber component="text" value={this.props.inheritData.totalAllowance}
-                            style={{
-                                transition: '0.8s ease-out',
-                                fontSize: 48,
-                            }}
-                            stepPrecision={0}
-                            duration={300}
+                        <CountUp 
+                            className = "bigNumber"
+                            start     = {0}
+                            end       = {this.props.inheritData.totalAllowance}   
+                            separator = " "     
+                            suffix    = " €"     
+                            duration  = {1.5}         
+                            useEasing = {true}               
                         /> 
                     </CardContent>
                     </Card>
                     <Card className="backgroundPrimaryColor numberCard">
                     <CardHeader title="Droits de successions" className="numberHeader" />
                     <CardContent>
-                    <AnimatedNumber component="text" value={this.props.inheritData.totalTax}
-                        style={{
-                            transition: '0.8s ease-out',
-                            fontSize: 48,
-                        }}
-                        stepPrecision={0}
-                        duration={300}
-                    />
+                    <CountUp 
+                        className = "bigNumber"
+                        start     = {0}
+                        end       = {this.props.inheritData.totalTax}      
+                        separator = " "     
+                        suffix    = " €"     
+                        duration  = {1.5}    
+                        useEasing = {true}                 
+                        /> 
                     </CardContent>
                     </Card>
                     {/* {this.props.inheritData.heirs.map(item => 

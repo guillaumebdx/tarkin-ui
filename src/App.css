@@ -91,3 +91,6 @@ body {
 	background-color: white;
 	text-align: center;
 }
+.bigNumber {
+	font-size: 3rem;
+}
