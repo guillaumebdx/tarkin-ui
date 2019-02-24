@@ -114,7 +114,6 @@ class InheritCollapse extends Component
                             <p>Part nette en {item.propertyType}</p> 
                             <p className="littlePadding">{item.netSum} €</p>
                         </div>
-
                     </div>
                     )} */}
                     <div className="center paddingTop">
@@ -132,6 +131,7 @@ class InheritCollapse extends Component
                 <InheritExplanation
                     open         = {this.state.InheritExplanationIsOpen} 
                     callback     = {this.closeInheritExplanation.bind(this)}
+                    data         = {this.props.inheritData}
                 />
                    {this.props.inheritData.heirs !== undefined && <Heirs /> } 
             </div>

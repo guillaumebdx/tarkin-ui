@@ -18,7 +18,37 @@ class InheritExplanation extends Component
 			  root: {
 			    margin: 0,
 			  },
-			}))(MuiDialogContent);
+            }))(MuiDialogContent);
+
+                this.props.data.heirs.map(item => 
+                    Object.keys(item.taxes).forEach(e => 
+                        console.log(`key=${e}  value=${item.taxes[e]}`)
+                    )
+                )
+                
+                //begin
+                const Heirs = () => {
+                const rows  = this.props.data.heirs.map((row, index) => {
+                const taxes = Object.keys(row.taxes).map((tax) => {
+                    return (
+                    <div className="flex">
+                        <p className="marginRight">{tax} %  </p>
+                        <p>{row.taxes[tax]} €</p>
+                    </div>
+                    )
+                })
+                        return (
+                            <div key={index}>
+                                {row.firstName}
+                                {taxes}
+                            </div>   
+                        );
+                        
+                    });
+                 return <div>{rows}</div>;
+                }
+
+            
         return(
             <Dialog 
 				aria-labelledby="responsive-dialog-title"
@@ -41,7 +71,7 @@ class InheritExplanation extends Component
 				</MuiDialogTitle>
 				 <DialogContent key="Content" className = "tarkinStyleContentDialog">
 				     <Paper>
-                         Texte
+                        <Heirs />
                      </Paper>
 				 </DialogContent>
 			</Dialog>
