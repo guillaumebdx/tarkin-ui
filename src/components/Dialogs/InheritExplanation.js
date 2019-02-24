@@ -9,6 +9,7 @@ import withMobileDialog     from '@material-ui/core/withMobileDialog';
 import Icon                 from '@material-ui/core/Icon';
 import Paper from '@material-ui/core/Paper';
 import { ro } from 'date-fns/esm/locale';
+import Currency from 'react-currency-formatter';
 
 class InheritExplanation extends Component
 {
@@ -28,47 +29,63 @@ class InheritExplanation extends Component
             return (
             <div className="flex spaceBetween">
                 <p className="marginRight">{tax} %  </p>
-                <p>{row.taxes[tax]} €</p>
+                <p><Currency quantity={row.taxes[tax]}  group=" "  currency="EUR" /></p>
             </div>
             )
         })
+        const HeirList = () => {
+            return (
+            <ul className="heirList">
+                    <li className="flex spaceBetween">
+                        <span>Part ({row.propertyType}) :</span> <span><Currency pattern= "##,### !" quantity={row.amount} group=" "  currency="EUR" /></span>
+                    </li>
+                    <li className="flex spaceBetween">
+                        <span>Abattement ({row.familyPosition}) :</span> <span><Currency pattern= "##,### !" quantity={row.allowance} group=" "  currency="EUR" /></span>
+                    </li>
+                    <li className="flex spaceBetween">
+                        <span>Part taxable : </span> <span><Currency pattern= "##,### !" quantity={row.taxablePart} group=" "  currency="EUR" /></span>
+                    </li>
+                    <li className="marginBottom marginTop">
+                        Application du barème progressif sur la part taxable :
+                        <div className="scalesBlock">
+                            {taxes}
+                        </div>
+                    </li>
+                    <li className="flex spaceBetween">
+                        <span>Droits de successions :</span> <span><Currency pattern= "##,### !" quantity={row.tax} group=" "  currency="EUR" /></span>
+                    </li>
+                    <li className="flex spaceBetween">
+                        <span>Montant net :</span> <span><Currency pattern= "##,### !" quantity={row.netSum} group=" "  currency="EUR" /></span>
+                    </li>
+                </ul>
+            )
+        }
+        const NoTax = () => {
+            return (
+                <div>
+                    <span>
+                        Aucun droit de succession à payer.
+                    </span>
+                    <div className="flex spaceBetween">
+                        <span>Montant net :</span> <span><Currency pattern= "##,### !" quantity={row.netSum} group=" "  currency="EUR" /></span>
+                    </div>
+                </div>
+            )
+        }
                 return (
-                    <div key={index} className="heirBlock">
+                    <div key={index}>
+                    <Paper className="heirBlock marginBottom">
                         <div className="flex heirBlockName">
                             <span>
-                                {row.familyPositionIdentifier === "child" ? <Icon>child_care</Icon> : <Icon>person_pin</Icon>}
+                                {row.familyPositionIdentifier === "child" ? <Icon style={{ fontSize: 30 }}>child_care</Icon> : <Icon style={{ fontSize: 30 }}>person_pin</Icon>}
                             </span>
                             <span className="heirName">
                                 {row.firstName}
                             </span>
                         </div>
-                        <ul className="heirList">
-                            <li className="flex spaceBetween">
-                                <span>Part ({row.propertyType}) :</span> <span>{row.amount} €</span>
-                            </li>
-                            <li className="flex spaceBetween">
-                                <span>Abattement ({row.familyPosition}) :</span> <span>{row.allowance} €</span>
-                            </li>
-                            <li className="flex spaceBetween">
-                                <span>Part taxable : </span> <span>{row.taxablePart} €</span>
-                            </li>
-                            <li>
-                                Application du barème progressif sur la part taxable :
-                                <div className="scalesBlock">
-                                    {taxes}
-                                </div>
-                            </li>
-                            <li className="flex spaceBetween">
-                                <span>Droits de successions :</span> <span>{row.tax} €</span>
-                            </li>
-                            <li className="flex spaceBetween">
-                                <span>Montant net :</span> <span>{row.netSum} €</span>
-                            </li>
-                        </ul>
-                        
-                        
-                       
-                    </div>   
+                        {row.tax > 0 ? <HeirList /> : <NoTax />}
+                     </Paper>
+                   </div>   
                 );
                 
             });
@@ -100,9 +117,7 @@ class InheritExplanation extends Component
 		        </span>
 				</MuiDialogTitle>
 				 <DialogContent key="Content" className = "tarkinStyleContentDialog">
-				     <Paper>
                         <Heirs />
-                     </Paper>
 				 </DialogContent>
 			</Dialog>
         )
