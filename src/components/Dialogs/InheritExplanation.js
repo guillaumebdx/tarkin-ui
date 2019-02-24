@@ -2,11 +2,13 @@ import Dialog               from '@material-ui/core/Dialog';
 import MuiDialogTitle       from '@material-ui/core/DialogTitle';
 import IconButton           from '@material-ui/core/IconButton';
 import CloseIcon            from '@material-ui/icons/Close';
-import React, { Component } from 'react';
+import React, { Component, Children } from 'react';
 import { withStyles }       from '@material-ui/core/styles';
 import MuiDialogContent     from '@material-ui/core/DialogContent';
 import withMobileDialog     from '@material-ui/core/withMobileDialog';
+import Icon                 from '@material-ui/core/Icon';
 import Paper from '@material-ui/core/Paper';
+import { ro } from 'date-fns/esm/locale';
 
 class InheritExplanation extends Component
 {
@@ -20,33 +22,62 @@ class InheritExplanation extends Component
 			  },
             }))(MuiDialogContent);
 
-                this.props.data.heirs.map(item => 
-                    Object.keys(item.taxes).forEach(e => 
-                        console.log(`key=${e}  value=${item.taxes[e]}`)
-                    )
-                )
-                
-                //begin
-                const Heirs = () => {
-                const rows  = this.props.data.heirs.map((row, index) => {
-                const taxes = Object.keys(row.taxes).map((tax) => {
-                    return (
-                    <div className="flex">
-                        <p className="marginRight">{tax} %  </p>
-                        <p>{row.taxes[tax]} €</p>
-                    </div>
-                    )
-                })
-                        return (
-                            <div key={index}>
+        const Heirs = () => {
+        const rows  = this.props.data.heirs.map((row, index) => {
+        const taxes = Object.keys(row.taxes).map((tax) => {
+            return (
+            <div className="flex spaceBetween">
+                <p className="marginRight">{tax} %  </p>
+                <p>{row.taxes[tax]} €</p>
+            </div>
+            )
+        })
+                return (
+                    <div key={index} className="heirBlock">
+                        <div className="flex heirBlockName">
+                            <span>
+                                {row.familyPositionIdentifier === "child" ? <Icon>child_care</Icon> : <Icon>person_pin</Icon>}
+                            </span>
+                            <span className="heirName">
                                 {row.firstName}
-                                {taxes}
-                            </div>   
-                        );
+                            </span>
+                        </div>
+                        <ul className="heirList">
+                            <li className="flex spaceBetween">
+                                <span>Part ({row.propertyType}) :</span> <span>{row.amount} €</span>
+                            </li>
+                            <li className="flex spaceBetween">
+                                <span>Abattement ({row.familyPosition}) :</span> <span>{row.allowance} €</span>
+                            </li>
+                            <li className="flex spaceBetween">
+                                <span>Part taxable : </span> <span>{row.taxablePart} €</span>
+                            </li>
+                            <li>
+                                Application du barème progressif sur la part taxable :
+                                <div className="scalesBlock">
+                                    {taxes}
+                                </div>
+                            </li>
+                            <li className="flex spaceBetween">
+                                <span>Droits de successions :</span> <span>{row.tax} €</span>
+                            </li>
+                            <li className="flex spaceBetween">
+                                <span>Montant net :</span> <span>{row.netSum} €</span>
+                            </li>
+                        </ul>
                         
-                    });
-                 return <div>{rows}</div>;
-                }
+                        
+                       
+                    </div>   
+                );
+                
+            });
+            return (
+                <div>
+                    { this.props.data.heirs && rows}
+                </div>
+            )
+        }
 
             
         return(
@@ -57,7 +88,6 @@ class InheritExplanation extends Component
 		        onBlur   ={this.handleChange}
 				key = "InheritExplanation"
                 maxWidth="xl"
-                fullWidth
 				>
 				<MuiDialogTitle disableTypography className="modalTitle">
 				<span className="modalTitle">

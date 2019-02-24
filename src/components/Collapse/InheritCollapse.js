@@ -32,7 +32,9 @@ class InheritCollapse extends Component
     render()
     {
 
-
+        const Avert = () => {
+            return <div>Utilisez l'assistant pour saisir les membres de votre famille</div>
+        }
         const Heirs = () => {
             return (
                 <div>
@@ -92,34 +94,10 @@ class InheritCollapse extends Component
                         /> 
                     </CardContent>
                     </Card>
-                    {/* {this.props.inheritData.heirs.map(item => 
-                    <div className="marginBottom">
-                        <div className="flex spaceBetween">
-                            <p>Part revenant à {item.firstName} :</p> 
-                            <p className="littlePadding">{item.amount} €</p>
-                        </div>
-                        <div className="flex spaceBetween">
-                            <p>Abattement {item.familyPosition} :</p> 
-                            <p className="littlePadding">{item.allowance} €</p>
-                        </div>
-                        <div className="flex spaceBetween">
-                            <p>Part taxable</p> 
-                            <p className="littlePadding">{item.taxablePart} €</p>
-                        </div>
-                        <div className="flex spaceBetween">
-                            <p>Droits à payer</p> 
-                            <p className="littlePadding">{item.tax} €</p>
-                        </div>
-                        <div className="flex spaceBetween">
-                            <p>Part nette en {item.propertyType}</p> 
-                            <p className="littlePadding">{item.netSum} €</p>
-                        </div>
-                    </div>
-                    )} */}
                     <div className="center paddingTop">
                         <Button className="backgroundPrimaryColor" variant="contained" color="primary" onClick={this.openInheritExplanation}>
-                        <Icon className="marginBottom backgroundPrimaryColor">highlight </Icon>
-                        Explications
+                            <Icon className="marginBottom backgroundPrimaryColor">highlight </Icon>
+                            Explications
                         </Button>
                     </div>
                 </div>
@@ -133,7 +111,7 @@ class InheritCollapse extends Component
                     callback     = {this.closeInheritExplanation.bind(this)}
                     data         = {this.props.inheritData}
                 />
-                   {this.props.inheritData.heirs !== undefined && <Heirs /> } 
+                   {this.props.inheritData.heirs !== undefined ? <Heirs /> : <Avert /> } 
             </div>
         )
     }

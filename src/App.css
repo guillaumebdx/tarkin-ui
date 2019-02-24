@@ -12,30 +12,30 @@ body {
 	justify-content: space-between;
 }
 .marginBottom {
-	margin-bottom: 10px;
+	margin-bottom: 1rem;
 }
 .paddingTop {
-	padding-top: 10px;
+	padding-top: 1rem;
 }
 .marginRight {
-	margin-right: 10px;
+	margin-right: 1rem;
 }
 .littlePadding {
-	padding-left: 5px;
+	padding-left: .5rem;
 }
 
 .mainCard {
 	background-color: #221266 !important;
-	margin: 26px !important;
+	margin: 2.6rem !important;
 }
 .width50 {
 	width: 75%;
 }
 .mainContainer {
-	margin-bottom: 50px;
+	margin-bottom: 5rem;
 }
 .parentsData {
-	padding-bottom: 20px;
+	padding-bottom: 2rem;
 }
 .familyTree {
 	display: flex;
@@ -58,11 +58,11 @@ body {
 .roundedIcon {
 	font-size: 36px;
     border-radius: 50%;
-    margin: 10px;
-    width: 50px !important;
-    height: 50px !important;
-    padding-top: 5px;
-    padding-left: 7px;
+    margin: 1rem;
+    width: 5rem !important;
+    height: 5rem !important;
+    padding-top: .5rem;
+    padding-left: .7rem;
     background-color: #221266;
     color: white;
     cursor:pointer;
@@ -73,8 +73,8 @@ body {
     justify-content: center;
 }
 .sliderLabel {
-	padding-bottom: 15px;
-	padding-top: 15px;
+	padding-bottom: 1.5rem;
+	padding-top: 1.5rem;
     color: white !important;
 }
 .slider {
@@ -87,7 +87,7 @@ body {
 	background-color: rgb(101,115,195);
 }
 .numberCard {
-	margin-bottom: 10px;
+	margin-bottom: 1rem;
 	text-align: center;
 }
 .numberHeader {
@@ -96,4 +96,22 @@ body {
 }
 .bigNumber {
 	font-size: 3rem;
+}
+.heirBlock {
+	padding: 1rem;
+}
+.heirList {
+	list-style: none;
+}
+.scalesBlock {
+	width: 60%;
+	margin-left: auto;
+    margin-right: auto;
+	
+}
+.heirBlockName {
+	align-items: center;	
+}
+.heirName {
+	margin-left: 1rem;
 }
