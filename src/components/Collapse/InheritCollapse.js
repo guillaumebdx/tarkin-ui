@@ -40,59 +40,75 @@ class InheritCollapse extends Component
                 <div>
                     
                     <Card className="backgroundPrimaryColor numberCard">
-                    <CardHeader title="Nombre d'héritiers" className="numberHeader" />
-                    <CardContent>
-                        <CountUp 
-                            className = "bigNumber"
-                            start     = {0}
-                            end       = {this.props.inheritData.heirs.length} 
-                            useEasing = {true}                    
-                        /> 
-                    </CardContent>
+                        <CardHeader title="Nombre d'héritiers" className="numberHeader" />
+                        <CardContent>
+                            <CountUp 
+                                className = "bigNumber"
+                                start     = {0}
+                                end       = {this.props.inheritData.heirs.length} 
+                                useEasing = {true}                    
+                            /> 
+                        </CardContent>
                     </Card>
 
                     <Card className="backgroundPrimaryColor numberCard">
-                    <CardHeader title="Montant total" className="numberHeader" />
-                    <CardContent>
-                        <CountUp 
-                            className = "bigNumber"
-                            start     = {0}
-                            end       = {this.props.inheritData.totalAmount}   
-                            separator = " "     
-                            suffix    = " €"     
-                            duration  = {1.5} 
-                            useEasing = {true}         
-                        /> 
-                    </CardContent>
+                        <CardHeader title="Montant total" className="numberHeader" />
+                        <CardContent>
+                            <CountUp 
+                                className = "bigNumber"
+                                start     = {0}
+                                end       = {this.props.inheritData.totalAmount}   
+                                separator = " "     
+                                suffix    = " €"     
+                                duration  = {1.5} 
+                                useEasing = {true}         
+                            /> 
+                        </CardContent>
                     </Card>
 
                     <Card className="backgroundPrimaryColor numberCard">
-                    <CardHeader title="Abattements" className="numberHeader" />
-                    <CardContent>
+                        <CardHeader title="Assurance Vie" className="numberHeader" />
+                        <CardContent>
+                            <CountUp 
+                                className = "bigNumber"
+                                start     = {0}
+                                end       = {this.props.inheritData.totalLifeInsurance}   
+                                separator = " "     
+                                suffix    = " €"     
+                                duration  = {1.5} 
+                                useEasing = {true}         
+                            /> 
+                        </CardContent>
+                    </Card>
+
+                    <Card className="backgroundPrimaryColor numberCard">
+                        <CardHeader title="Abattements" className="numberHeader" />
+                        <CardContent>
+                            <CountUp 
+                                className = "bigNumber"
+                                start     = {0}
+                                end       = {this.props.inheritData.totalAllowance}   
+                                separator = " "     
+                                suffix    = " €"     
+                                duration  = {1.5}         
+                                useEasing = {true}               
+                            /> 
+                        </CardContent>
+                    </Card>
+
+                    <Card className="backgroundPrimaryColor numberCard">
+                        <CardHeader title="Droits de successions" className="numberHeader" />
+                        <CardContent>
                         <CountUp 
                             className = "bigNumber"
                             start     = {0}
-                            end       = {this.props.inheritData.totalAllowance}   
+                            end       = {this.props.inheritData.totalTax}      
                             separator = " "     
                             suffix    = " €"     
-                            duration  = {1.5}         
-                            useEasing = {true}               
-                        /> 
-                    </CardContent>
-                    </Card>
-                    <Card className="backgroundPrimaryColor numberCard">
-                    <CardHeader title="Droits de successions" className="numberHeader" />
-                    <CardContent>
-                    <CountUp 
-                        className = "bigNumber"
-                        start     = {0}
-                        end       = {this.props.inheritData.totalTax}      
-                        separator = " "     
-                        suffix    = " €"     
-                        duration  = {1.5}    
-                        useEasing = {true}                 
-                        /> 
-                    </CardContent>
+                            duration  = {1.5}    
+                            useEasing = {true}                 
+                            /> 
+                        </CardContent>
                     </Card>
                     <div className="center paddingTop">
                         <Button className="backgroundPrimaryColor" variant="contained" color="primary" onClick={this.openInheritExplanation}>
