@@ -96,6 +96,73 @@ class InheritExplanation extends Component
             )
         }
 
+        const Beneficiaries = () => {
+        const rows  = this.props.data.beneficiaries.map((row, index) => {
+        const taxes = Object.keys(row.taxes).map((tax) => {
+            return (
+            <div className="flex spaceBetween">
+                <p className="marginRight">{tax} %  </p>
+                <p><Currency quantity={row.taxes[tax]}  group=" "  currency="EUR" /></p>
+            </div>
+            )
+        })
+        const HeirList = () => {
+            return (
+            <ul className="heirList">
+                    <li className="flex spaceBetween">
+                        <span>Part ({row.propertyType}) :</span> <span><Currency pattern= "##,### !" quantity={row.amount} group=" "  currency="EUR" /></span>
+                    </li>
+                    <li className="marginBottom marginTop">
+                        Application du barème progressif assurance vie :
+                        <div className="scalesBlock">
+                            {taxes}
+                        </div>
+                    </li>
+                    <li className="flex spaceBetween">
+                        <span>Impôt assurance vie:</span> <span><Currency pattern= "##,### !" quantity={row.tax} group=" "  currency="EUR" /></span>
+                    </li>
+                    <li className="flex spaceBetween">
+                        <span>Montant net :</span> <span><Currency pattern= "##,### !" quantity={row.netSum} group=" "  currency="EUR" /></span>
+                    </li>
+                </ul>
+            )
+        }
+        const NoTax = () => {
+            return (
+                <div>
+                    <span>
+                        Aucun impôt sur l'assurance vie
+                    </span>
+                    <div className="flex spaceBetween">
+                        <span>Montant net :</span> <span><Currency pattern= "##,### !" quantity={row.netSum} group=" "  currency="EUR" /></span>
+                    </div>
+                </div>
+            )
+        }
+                return (
+                    <div key={index}>
+                    <Paper className="heirBlock marginBottom">
+                        <div className="flex heirBlockName">
+                            <span>
+                                {row.familyPositionIdentifier === "child" ? <Icon style={{ fontSize: 30 }}>child_care</Icon> : <Icon style={{ fontSize: 30 }}>person_pin</Icon>}
+                            </span>
+                            <span className="heirName">
+                                {row.firstName}
+                            </span>
+                        </div>
+                        {row.tax > 0 ? <HeirList /> : <NoTax />}
+                     </Paper>
+                   </div>   
+                );
+                
+            });
+            return (
+                <div>
+                    { this.props.data.heirs && rows}
+                </div>
+            )
+        }
+
             
         return(
             <Dialog 
@@ -118,6 +185,7 @@ class InheritExplanation extends Component
 				</MuiDialogTitle>
 				 <DialogContent key="Content" className = "tarkinStyleContentDialog">
                         <Heirs />
+                        {this.props.data.beneficiaries && <Beneficiaries /> }
 				 </DialogContent>
 			</Dialog>
         )
