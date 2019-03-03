@@ -69,6 +69,9 @@ class AddPropertyDialog extends Component
 		}
 		if (nextState.isErrorAcquirementType !== this.state.isErrorAcquirementType) {
 			return true;
+        }
+        if (nextState.advert !== this.state.advert) {
+			return true;
 		}
 
 		return false;
@@ -113,6 +116,10 @@ class AddPropertyDialog extends Component
 	  }
 	
 	handleChange = (name) => event => {
+        if (name === "financialId" && event.target.value === "6") {
+            this.setState({advert:true})
+        }
+        console.log(event.target.value);
 		this.setState({
 	        [name]: event.target.value,
 	    });
@@ -386,7 +393,14 @@ class AddPropertyDialog extends Component
 		let displayAcquirementType = false;
 		if (displayOwner === true && lawPosition === "common-community") {
 			displayAcquirementType = true;
-		}
+        }
+        const Advert = () => {
+            return (
+                <p className="advert">
+                    Clause par défaut.
+                </p>
+            )
+        }
 
 		return (
 				<Dialog 
@@ -492,7 +506,8 @@ class AddPropertyDialog extends Component
 		        />
 		        </RadioGroup>
 				</div>
-				{this.state.propertyType === "checkedFinancial" && <FinancialList />}
+                {this.state.propertyType === "checkedFinancial" && <FinancialList />}
+                {this.state.advert && <Advert />}
 				{this.state.propertyType === "checkedRealEstate" && <RealEstateList />}
 				<div>
 					{displayOwner === true && <PropertyOwner /> }
