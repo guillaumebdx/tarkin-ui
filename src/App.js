@@ -38,7 +38,7 @@ class App extends Component {
 		    	fiscalityIFIValue    	  : 50,
 		    	rentabilityctValue		  : 50,
 		    	rentabilityltValue        : 50,
-		    	retirementValue			  : 50,
+                retirementValue			  : 50,
 		}
 		
 	}
@@ -65,6 +65,22 @@ class App extends Component {
             .then(response => response.json())
             .then(data => this.setState({ inheritData: data }));
         }
+        fetch("http://tarkin.harari.io/api/priorityTypes")
+		.then(response => response.json())
+        .then(data => this.setState({ priorityTypes: data }));
+        if (userId !== null) {
+        fetch("http://tarkin.harari.io/api/user/" + userId + "/priorities")
+		.then(response => response.json())
+        .then(data => this.setState({
+                fiscalityValue           : data[0].value,
+		    	successionValue 	     : data[1].value, 
+		    	rentabilityltValue    	 : data[2].value,
+		    	rentabilityctValue	     : data[4].value,
+		    	retirementValue          : data[3].value,
+                fiscalityIFIValue		 : data[5].value,
+
+        }));
+    }
         
 
 	}
@@ -192,9 +208,16 @@ class App extends Component {
 		let isUserLoaded = true
 		if (this.state.userId === "undefined" || this.state.userId === null) {
 			isUserLoaded = false;
-		}
+        }
+        let priorityLabels = [];
+        if (undefined !== this.state.priorityTypes) {
+            this.state.priorityTypes.forEach(element => {
+                priorityLabels.push(element.name)
+            });
+        }
+console.log(priorityLabels)
 		const DataRadarMock = {
-				  labels: ['Succession', 'Fiscalité IR', 'Fiscalité IFI', 'Rentabilité CT', 'Rentabilité LT', 'Retraite',],
+				  labels: priorityLabels,
 				  datasets: [
 				    {
 				      label: 'Mes priorités',
@@ -205,13 +228,14 @@ class App extends Component {
 				      pointHoverBackgroundColor: '#fff',
 				      pointHoverBorderColor: 'rgba(255,99,132,1)',
 				      data: [
-				    	  this.state.successionValue, 
-				    	  this.state.fiscalityValue, 
+                          this.state.fiscalityValue, 
+                          this.state.successionValue, 
+                          this.state.rentabilityltValue, 
+                          this.state.rentabilityctValue, 
+                          this.state.retirementValue,
 				    	  this.state.fiscalityIFIValue, 
-				    	  this.state.rentabilityctValue, 
-				    	  this.state.rentabilityltValue, 
-				    	  this.state.retirementValue,
-				    	  ],
+ 
+                        ],
 
 				    }
 				  ]
