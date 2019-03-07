@@ -75,9 +75,8 @@ class AddPhysicalPersonDialog extends Component
 	}
 	componentDidMount()
 	{
-		fetch("http://tarkin.harari.io/api/family-positions")
-		.then(response => response.json())
-		.then(data => this.setState({ familyPositionList: data }));
+
+		
 		
 		fetch("http://tarkin.harari.io/api/spouses-laws")
 		.then(response => response.json())
@@ -86,6 +85,9 @@ class AddPhysicalPersonDialog extends Component
 
 	componentWillReceiveProps(nextProps)
 	{
+        fetch("http://tarkin.harari.io/api/family-positions?spouse=" + this.state.isSingle)
+		.then(response => response.json())
+		.then(data => this.setState({ familyPositionList: data }));
 	
 		this.props.persons.map(person => {
 			if (person.cradle === true) {
