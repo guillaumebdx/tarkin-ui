@@ -163,6 +163,14 @@ class InheritExplanation extends Component
             )
         }
 
+        const UniversalCommunity = () => {
+            return (
+                <Paper className="heirBlock marginBottom">
+                    Aucune succession ouverte pour les mariages en communauté universelle. Tous les biens reviennent au conjoint survivant.
+                </Paper>
+            )
+        }
+
             
         return(
             <Dialog 
@@ -184,7 +192,7 @@ class InheritExplanation extends Component
 		        </span>
 				</MuiDialogTitle>
 				 <DialogContent key="Content" className = "tarkinStyleContentDialog">
-                        <Heirs />
+                        {this.props.data.lawIdentifier !== "universal-community" ? <Heirs /> : <UniversalCommunity />}
                         {this.props.data.beneficiaries && <Beneficiaries /> }
 				 </DialogContent>
 			</Dialog>
