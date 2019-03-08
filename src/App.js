@@ -15,6 +15,7 @@ import FamilyListDialog            from './components/Dialogs/FamilyListDialog';
 import DemoDialog                  from './components/Dialogs/DemoDialog';
 import RadarCollapse               from './components/Collapse/RadarCollapse';
 import InheritCollapse             from './components/Collapse/InheritCollapse';
+import Currency                    from 'react-currency-formatter';
 
 
 

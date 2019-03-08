@@ -7,6 +7,7 @@ import React, { Component } from 'react';
 import { withStyles }       from '@material-ui/core/styles';
 import MuiDialogContent     from '@material-ui/core/DialogContent';
 import withMobileDialog     from '@material-ui/core/withMobileDialog';
+import Currency             from 'react-currency-formatter';
 
 class PropertyListDialog extends Component
 {
@@ -45,7 +46,7 @@ class PropertyListDialog extends Component
 		}
 		const rows = [];
 		this.state.propertyList.map(property => {
-			return rows.push(createData(property.isFinancial, property.name, property.type, property.physicalPersonFirstName, property.value + " €", property.returnRate + " %", property.feelingValue))
+			return rows.push(createData(property.isFinancial, property.name, property.type, property.physicalPersonFirstName, <Currency pattern= "##,### !" quantity={property.value} group=" "  currency="EUR" />, property.returnRate + " %", property.feelingValue))
 		})
 
 		return (

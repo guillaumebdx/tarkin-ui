@@ -124,3 +124,6 @@ body {
 	color : rgb(246, 72, 87);
 	padding-left: 10px;	
 }
+.noWrap {
+	white-space: nowrap;
+}
