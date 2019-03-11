@@ -92,7 +92,10 @@ class App extends Component {
 		}
 		if (context === "modalListProperties") {
 			this.setState({propertyListDialogIsOpen : true})
-		}
+        }
+        if (context === "stepperProperty") {
+            alert('ok')
+        }
 		
 		
 	}
@@ -216,7 +219,6 @@ class App extends Component {
                 priorityLabels.push(element.name)
             });
         }
-console.log(priorityLabels)
 		const DataRadarMock = {
 				  labels: priorityLabels,
 				  datasets: [

@@ -45,12 +45,27 @@ class RecipeReviewCard extends React.Component {
 			    mobileMoreAnchorEl: null,
 		}
 	}
-  handleProfileMenuOpen = event => {
+    handleProfileMenuOpen = event => {
 	    this.setState({ anchorEl: event.currentTarget });
 	  };
 
-	  handleMenuClose = () => {
-	    this.setState({ anchorEl: null });
+	  handleMenuClose = (e) => {
+         if (e.currentTarget.dataset.id === "1" && e.currentTarget.dataset.context === "properties") {
+            this.props.callback("modalAddProperties");
+         }
+         if (e.currentTarget.dataset.id === "2" && e.currentTarget.dataset.context === "properties") {
+            this.props.callback("modalListProperties");
+         }
+         if (e.currentTarget.dataset.id === "3" && e.currentTarget.dataset.context === "properties") {
+            this.props.callback("stepperProperty");
+         }
+         if (e.currentTarget.dataset.id === "1" && e.currentTarget.dataset.context === "physicalPerson") {
+            this.props.callback("modalAddPhysicalPerson");
+         }
+         if (e.currentTarget.dataset.id === "2" && e.currentTarget.dataset.context === "physicalPerson") {
+            this.props.callback("modalListfamily");
+         }
+	     this.setState({ anchorEl: null });
 	  };
 
 	handleClick = (context) => {
@@ -90,9 +105,9 @@ class RecipeReviewCard extends React.Component {
     	        open={isMenuOpen}
     	        onClose={this.handleMenuClose}
     	      >
-    	        {this.props.menu1 && <MenuItem onClick={this.handleMenuClose}>{this.props.menu1} </MenuItem>}
-    	        {this.props.menu2 && <MenuItem onClick={this.handleMenuClose}>{this.props.menu2}</MenuItem>}
-    	        {this.props.menu3 && <MenuItem onClick={this.handleMenuClose}>{this.props.menu3}</MenuItem>}
+    	        {this.props.menu1 && <MenuItem onClick={this.handleMenuClose} data-id={1} data-context={this.props.context}>{this.props.menu1} </MenuItem>}
+    	        {this.props.menu2 && <MenuItem onClick={this.handleMenuClose} data-id={2} data-context={this.props.context}>{this.props.menu2}</MenuItem>}
+    	        {this.props.menu3 && <MenuItem onClick={this.handleMenuClose} data-id={3} data-context={this.props.context}>{this.props.menu3}</MenuItem>}
     	      </Menu>
     	      )
     }
@@ -110,8 +125,8 @@ class RecipeReviewCard extends React.Component {
             <span className="white"><MoreVertIcon /></span>
             </IconButton>
           }
-          title=<span className="white">{this.props.title}</span>
-          subheader=<span className="white">{this.props.subHeader}</span>
+          title={<span className="white">{this.props.title}</span>}
+          subheader={<span className="white">{this.props.subHeader}</span>}
         />
         <CardContent>
 	      <RenderMenu />
