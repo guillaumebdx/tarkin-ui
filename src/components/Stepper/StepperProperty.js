@@ -19,12 +19,54 @@ import { DatePicker }              from 'material-ui-pickers';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Slider               from '@material-ui/lab/Slider';
 import Typography           from '@material-ui/core/Typography';
+import Slide from '@material-ui/core/Slide';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
 const dateFormat = require('dateformat');
 
+const styles = {
+  appBar: {
+    position: 'relative',
+  },
+  flex: {
+    flex: 1,
+  },
+};
+function Transition(props) {
+  return <Slide direction="up" {...props} />;
+}
 class StepperProperty extends Component
 {
 
+    handleClose = () => {
+	    	this.props.callback();
+	  }
+
+    render() {
+        const { classes } = this.props;
+        return (
+            <Dialog
+                fullScreen
+                open={this.props.open}
+                onClose={this.handleClose}
+                TransitionComponent={Transition}
+            >
+                <AppBar color="primary" className={classes.appBar}>
+                        <Toolbar>
+                        <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
+                            <CloseIcon />
+                        </IconButton>
+                        <Typography variant="h6" color="inherit" className={classes.flex}>
+                            Assistant de création de propriété
+                        </Typography>
+                        </Toolbar>
+                </AppBar>
+            </Dialog>
+        )
+    }
+
+    
 
 
 }
-export default withMobileDialog()(StepperProperty);
+export default withStyles(styles)(StepperProperty);

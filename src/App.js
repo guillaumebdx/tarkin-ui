@@ -15,6 +15,7 @@ import FamilyListDialog            from './components/Dialogs/FamilyListDialog';
 import DemoDialog                  from './components/Dialogs/DemoDialog';
 import RadarCollapse               from './components/Collapse/RadarCollapse';
 import InheritCollapse             from './components/Collapse/InheritCollapse';
+import StepperProperty from './components/Stepper/StepperProperty';
 
 
 class App extends Component {
@@ -31,7 +32,8 @@ class App extends Component {
 				keyModalProperty          : 0,
 				propertyListDialogIsOpen  : false,
 				familyListDialogIsOpen    : false,
-				demoDialogisOpen          : false,
+                demoDialogisOpen          : false,
+                stepperPropertyOpen       : false,
 				successionValue           : 50,
 		    	fiscalityValue 			  : 50, 
 		    	fiscalityIFIValue    	  : 50,
@@ -92,7 +94,7 @@ class App extends Component {
 			this.setState({propertyListDialogIsOpen : true})
         }
         if (context === "stepperProperty") {
-            alert('ok')
+            this.setState({stepperPropertyOpen : true})
         }
 		
 		
@@ -125,6 +127,11 @@ class App extends Component {
 	closeDemoDialog() 
 	{
 		this.setState({propertyModalIsOpen : false})
+    }
+    
+    closeStepperProperty() 
+	{
+		this.setState({stepperPropertyOpen : false})
 	}
 	updateSumProperties(data) 
 	{
@@ -267,6 +274,10 @@ class App extends Component {
 	        callbackSave = {this.updatePhysicalPersons.bind(this)}
 	        userId       = {this.state.userId}
 	        />
+            <StepperProperty
+                open         = {this.state.stepperPropertyOpen} 
+                callback     = {this.closeStepperProperty.bind(this)}
+            />
 	        </div>
 	        
 	        <div key={isNaN(this.state.propertiesSum.realEstate + this.state.propertiesSum.financial +1) ? 2 : this.state.propertiesSum.realEstate + this.state.propertiesSum.financial +1}>
