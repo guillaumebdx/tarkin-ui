@@ -69,7 +69,7 @@ function CustomizedTable(props) {
               <CustomTableCell align="left">{row.owner}</CustomTableCell>
               <CustomTableCell align="right" className="nowrap">{row.value}</CustomTableCell>
               <CustomTableCell align="right">{row.rate}</CustomTableCell>
-              <CustomTableCell align="right">{row.feelingValue} <HeartIcon fontSize="small" color="#221266" /> </CustomTableCell>
+              <CustomTableCell align="right">{row.feelingValue} <HeartIcon fontSize="small" color="secondary" /> </CustomTableCell>
             </TableRow>
           ))}
         </TableBody>

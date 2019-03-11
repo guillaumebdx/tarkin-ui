@@ -17,8 +17,6 @@ import DateFnsUtils                from '@date-io/date-fns';
 import { MuiPickersUtilsProvider } from 'material-ui-pickers';
 import { DatePicker }              from 'material-ui-pickers';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import Slider               from '@material-ui/lab/Slider';
-import Typography           from '@material-ui/core/Typography';
 const dateFormat = require('dateformat');
 
 class AddPropertyDialog extends Component
@@ -79,24 +77,25 @@ class AddPropertyDialog extends Component
 
 	componentWillMount()
 	{
-		fetch("http://tarkin.harari.io/api/properties/financial")
-		.then(response => response.json())
-		.then(data => this.setState({ financialList: data })) ;
+
 		
-		fetch("http://tarkin.harari.io/api/properties/realestate")
-		.then(response => response.json())
-		.then(data => this.setState({ realEstateList: data }));
-		
-		fetch("http://tarkin.harari.io/api/acquirement-types")
-		.then(response => response.json())
-		.then(data => this.setState({ acquisitionTypeList: data }));
 	}
-//	 componentWillUnmount() 
-//	 {
-//	     this._isMounted = false;
-//     }
+
 	componentWillReceiveProps(nextProps)
 	{
+        if (nextProps.open) {
+            fetch("http://tarkin.harari.io/api/properties/financial")
+            .then(response => response.json())
+            .then(data => this.setState({ financialList: data })) ;
+            
+            fetch("http://tarkin.harari.io/api/properties/realestate")
+            .then(response => response.json())
+            .then(data => this.setState({ realEstateList: data }));
+            
+            fetch("http://tarkin.harari.io/api/acquirement-types")
+            .then(response => response.json())
+            .then(data => this.setState({ acquisitionTypeList: data }));
+        }
 		let spouses = [];
 		this.props.persons.map(person => {
 			if (person.family_position === 'Conjoint') {

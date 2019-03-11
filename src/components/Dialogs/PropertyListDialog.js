@@ -21,11 +21,14 @@ class PropertyListDialog extends Component
 //		this.handleChange = this.handleChange.bind(this)
 	}
 
-	componentWillMount()
+	componentWillReceiveProps(nextProps)
 	{
-		fetch("http://tarkin.harari.io/api/user/" + this.props.userId + "/properties")
-		.then(response => response.json())
-		.then(data => this.setState({ propertyList: data })) ;
+        if(nextProps.open) {
+            fetch("http://tarkin.harari.io/api/user/" + this.props.userId + "/properties")
+            .then(response => response.json())
+            .then(data => this.setState({ propertyList: data })) ;
+        }
+		
 
 	}
 	handleClose = () => {
