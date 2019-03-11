@@ -27,7 +27,6 @@ class AddPhysicalPersonDialog extends Component
 				spouseLaw       : "",
 				childOf         : "",
 				relatedTo       : "",
-				spouseLaw       : "",
 				selectedDate    : new Date(),
 		}
 		this.handleChange = this.handleChange.bind(this)

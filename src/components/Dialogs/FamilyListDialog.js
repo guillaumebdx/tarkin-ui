@@ -20,11 +20,14 @@ class FamilyListDialog extends Component
 //		this.handleChange = this.handleChange.bind(this)
 	}
 
-	componentWillMount()
+	componentWillReceiveProps(nextProps)
 	{
-		fetch("http://tarkin.harari.io/api/user/" + this.props.userId + "/physical-persons")
-		.then(response => response.json())
-		.then(data => this.setState({ familyList: data })) ;
+        if (nextProps.open) {
+            fetch("http://tarkin.harari.io/api/user/" + this.props.userId + "/physical-persons")
+            .then(response => response.json())
+            .then(data => this.setState({ familyList: data })) ;
+        }
+		
 
 	}
 	handleClose = () => {

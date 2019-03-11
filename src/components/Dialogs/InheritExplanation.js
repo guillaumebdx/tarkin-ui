@@ -2,14 +2,13 @@ import Dialog               from '@material-ui/core/Dialog';
 import MuiDialogTitle       from '@material-ui/core/DialogTitle';
 import IconButton           from '@material-ui/core/IconButton';
 import CloseIcon            from '@material-ui/icons/Close';
-import React, { Component, Children } from 'react';
+import React, { Component } from 'react';
 import { withStyles }       from '@material-ui/core/styles';
 import MuiDialogContent     from '@material-ui/core/DialogContent';
 import withMobileDialog     from '@material-ui/core/withMobileDialog';
 import Icon                 from '@material-ui/core/Icon';
-import Paper from '@material-ui/core/Paper';
-import { ro } from 'date-fns/esm/locale';
-import Currency from 'react-currency-formatter';
+import Paper                from '@material-ui/core/Paper';
+import Currency             from 'react-currency-formatter';
 
 class InheritExplanation extends Component
 {
