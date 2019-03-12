@@ -15,7 +15,7 @@ import FamilyListDialog            from './components/Dialogs/FamilyListDialog';
 import DemoDialog                  from './components/Dialogs/DemoDialog';
 import RadarCollapse               from './components/Collapse/RadarCollapse';
 import InheritCollapse             from './components/Collapse/InheritCollapse';
-import StepperProperty from './components/Stepper/StepperProperty';
+import StepperProperty             from './components/Stepper/StepperProperty/StepperProperty';
 
 
 class App extends Component {
@@ -302,7 +302,7 @@ class App extends Component {
 		        		menu1     = "Ajouter une propriété"
 		        		menu2     = "Liste des propriétés"
 		        		menu3     = "Assistant de création"
-		        		data      = <Doughnut data={DataAssetMock} options = {OptionsAsset} />
+		        		data      = {<Doughnut data={DataAssetMock} options = {OptionsAsset} />}
 		        		collapse  = "Détail de votre patrimoine financier :"
 		        		context   = "properties"
 		        		callback  = {this.openPropertyModal.bind(this)}
