@@ -11,6 +11,9 @@ body {
 .spaceBetween {
 	justify-content: space-between;
 }
+.spaceAround {
+	justify-content: space-around;
+}
 .marginBottom {
 	margin-bottom: 1rem;
 }
