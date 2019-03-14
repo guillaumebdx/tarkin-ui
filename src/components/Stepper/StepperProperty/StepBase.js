@@ -75,15 +75,21 @@ class StepBase extends Component {
 
     return (
       <div className={classes.root}>
-
+        {!isMobile &&
         <Stepper activeStep={activeStep} alternativeLabel>
           {steps.map(label => (
             <Step key={label}>
               <StepLabel>{label}</StepLabel>
             </Step>
           ))}
-        </Stepper>
-        {/* {isMobile && <MobileStepper />} */}
+        </Stepper>}
+         {isMobile && 
+         <MobileStepper 
+            callbackStepNext = {this.handleNext.bind(this)} 
+            callbackStepBack = {this.handleBack.bind(this)} 
+            nbSteps          = {this.state.stepNames.length}
+         />
+         } 
         <div>
           {this.state.activeStep === steps.length ? (
             <div>
@@ -91,8 +97,8 @@ class StepBase extends Component {
             </div>
           ) : (
             <div>
-                    {getStepContent(activeStep)}
-             
+              {getStepContent(activeStep)}
+             {!isMobile &&
               <div className="flex spaceAround">
                 <Button
                   disabled={activeStep === 0}
@@ -105,6 +111,7 @@ class StepBase extends Component {
                   {activeStep === steps.length - 1 ? <SaveIcon /> : <NextIcon/>}
                 </Button>
               </div>
+             }
             </div>
           )}
         </div>
