@@ -28,16 +28,6 @@ const styles = theme => ({
 
 const isMobile = window.innerWidth <= 500;
 
-function getStepContent(stepIndex) {
-  switch (stepIndex) {
-    case 0:
-      return <Step1 />;
-    case 1:
-      return <Step2 />;
-    default:
-      return '';
-  }
-}
 
 class StepBase extends Component {
   state = {
@@ -55,6 +45,17 @@ class StepBase extends Component {
 
   };
 
+  getStepContent = (stepIndex) => {
+    switch (stepIndex) {
+        case 0:
+        return <Step1 value={this.state.name} callback = {this.callbackSave.bind(this)} /> ;
+        case 1:
+        return <Step2 amount={this.state.amount} callback = {this.callbackSave.bind(this)} />;
+        default:
+        return '';
+    }
+  }
+
   handleNext = () => {
     this.setState(state => ({
       activeStep: state.activeStep + 1,
@@ -66,6 +67,14 @@ class StepBase extends Component {
       activeStep: state.activeStep - 1,
     }));
   };
+  callbackSave = (stepData) => {
+       
+      stepData.forEach(function(value, key) {
+        this.setState({
+                [key] : value,
+            });
+      }.bind(this));
+  }
 
 
   render() {
@@ -78,7 +87,7 @@ class StepBase extends Component {
         {!isMobile &&
         <Stepper activeStep={activeStep} alternativeLabel>
           {steps.map(label => (
-            <Step key={label}>
+            <Step key = {label}>
               <StepLabel>{label}</StepLabel>
             </Step>
           ))}
@@ -97,7 +106,7 @@ class StepBase extends Component {
             </div>
           ) : (
             <div>
-              {getStepContent(activeStep)}
+              {this.getStepContent(activeStep)}
              {!isMobile &&
               <div className="flex spaceAround">
                 <Button
