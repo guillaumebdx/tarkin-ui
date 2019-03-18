@@ -13,10 +13,18 @@ import EuroSymbol           from '@material-ui/icons/EuroSymbol';
 import Radio                from '@material-ui/core/Radio';
 import RadioGroup           from '@material-ui/core/RadioGroup';
 import PlusButton           from '../Buttons/PlusButton';
-import DateFnsUtils                from '@date-io/date-fns';
+import MomentUtils from "@date-io/moment";
 import { MuiPickersUtilsProvider } from 'material-ui-pickers';
 import { DatePicker }              from 'material-ui-pickers';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import moment from 'moment';
+import "moment/locale/fr";
+MomentUtils.prototype.getStartOfMonth=MomentUtils.prototype.startOfMonth
+
+
+moment.locale("fr");
+
+
 const dateFormat = require('dateformat');
 
 class AddPropertyDialog extends Component
@@ -472,10 +480,10 @@ class AddPropertyDialog extends Component
 			    />
 				</div>
 				<div>
-				<MuiPickersUtilsProvider utils={DateFnsUtils}>
-					<DatePicker 
+				<MuiPickersUtilsProvider utils={MomentUtils} locale='fr' moment={moment}>
+                    <DatePicker 
 					    fullWidth
-						label       = "Date d'achat"
+                        label       = "Date d'achat"
  					    variant     = "outlined"
 						margin      ="normal"
 			            value       = {this.state.selectedDate}
