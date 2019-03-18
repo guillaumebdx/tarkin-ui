@@ -8,6 +8,7 @@ import Button               from '@material-ui/core/Button';
 import Typography           from '@material-ui/core/Typography';
 import Step1                from './Step/Step1'
 import Step2                from './Step/Step2'
+import Step3                from './Step/Step3'
 import NextIcon             from '@material-ui/icons/NavigateNext';
 import BeforeIcon           from '@material-ui/icons/NavigateBefore';
 import SaveIcon             from '@material-ui/icons/Save';
@@ -51,6 +52,8 @@ class StepBase extends Component {
         return <Step1 value={this.state.name} callback = {this.callbackSave.bind(this)} /> ;
         case 1:
         return <Step2 amount={this.state.amount} callback = {this.callbackSave.bind(this)} />;
+        case 2:
+        return <Step3 rate={this.state.rate} name={this.state.name} callback = {this.callbackSave.bind(this)} />;
         default:
         return '';
     }

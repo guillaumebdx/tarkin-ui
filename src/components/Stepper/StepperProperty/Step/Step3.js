@@ -1,17 +1,18 @@
+
 import React, { Component } from 'react';
 import Typography           from '@material-ui/core/Typography';
 import TextField            from '@material-ui/core/TextField';
+import InputAdornment       from '@material-ui/core/InputAdornment';
 
-class Step1 extends Component
+class Step3 extends Component
 {
-
 
     constructor(props)
 	{
 		super(props)
 		this.state = {
-                isErrorName : false,
-                name        : '',
+                isErrorValue : false,
+                rate         : null,
 		}
 		this.handleChange = this.handleChange.bind(this)
     }
@@ -25,35 +26,39 @@ class Step1 extends Component
         this.props.callback(stepData);
         
 	  };
+
     render()
     {
         return (
             <div className="center">
                 <Typography variant='title'>
-                Donnez un nom à votre bien
+                    Quel est le rendement de {this.props.name} ?
                 </Typography>
                 <Typography variant='caption'>
-                Le nom n'a pas grande importance, il vous servira pour reconnaître le bien dans les analyses et conseils.
+                    Si vous le connaissez. Sinon, vous pouvez aussi laisser ce champ vide.
                 </Typography>
                 <div>
-				<TextField 
-					error        = {this.state.isErrorName}
-				    name         = "addPropertyName"
-				    id           = "PropertyName"
-			        label        = "Nom du bien"
+			    <TextField 
+			    	error        = {this.state.isErrorValue}
+			        name         = "addPropertyValue"
+				    id           = "PropertyValue"
+			        label        = "Rendement du bien"
 			        margin       = "normal"
 			        variant      = "outlined"
-			        defaultValue = {this.props.value}
-				    onBlur       = {this.handleChange('name')}
-                    key          = "propertyName"
+			        type         = "number"
+			        defaultValue = {this.props.rate}
+				    onBlur       = {this.handleChange('rate')}
+                    key          = "propertyValue"
                     autoComplete = "off"
-		    	
+			        InputProps={{
+			            endAdornment: <InputAdornment position="end">%</InputAdornment>,
+			        }}
 				/>
-		        </div>
+			    </div>
             </div>
         )
     }
 
 
 }
-export default Step1;
+export default Step3;

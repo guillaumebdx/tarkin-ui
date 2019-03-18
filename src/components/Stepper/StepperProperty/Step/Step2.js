@@ -48,7 +48,8 @@ class Step2 extends Component
 			        type         = "number"
 			        defaultValue = {this.props.amount}
 				    onBlur       = {this.handleChange('amount')}
-			        key          = "propertyValue"
+                    key          = "propertyValue"
+                    autoComplete = "off"
 			        InputProps={{
 			            endAdornment: <InputAdornment position="end">€</InputAdornment>,
 			        }}
