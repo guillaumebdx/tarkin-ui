@@ -130,3 +130,11 @@ body {
 .noWrap {
 	white-space: nowrap;
 }
+.sliderDialog {
+	width: 25% !important;
+    margin-left: auto;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    padding-bottom: 25px;
+    margin-right: auto;
+}

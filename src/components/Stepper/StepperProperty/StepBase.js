@@ -10,6 +10,7 @@ import Step1                from './Step/Step1'
 import Step2                from './Step/Step2'
 import Step3                from './Step/Step3'
 import Step4                from './Step/Step4'
+import Step5                from './Step/Step5'
 import NextIcon             from '@material-ui/icons/NavigateNext';
 import BeforeIcon           from '@material-ui/icons/NavigateBefore';
 import SaveIcon             from '@material-ui/icons/Save';
@@ -45,7 +46,8 @@ class StepBase extends Component {
     ],
     isFinancial  : false,
     isRealEstate : false,
-    selectedDate      : new Date(),
+    selectedDate : new Date(),
+    feelingValue : 5,
 
   };
 
@@ -59,6 +61,8 @@ class StepBase extends Component {
         return <Step3 rate={this.state.rate} name={this.state.name} callback = {this.callbackSave.bind(this)} />;
         case 3:
         return <Step4 selectedDate={this.state.selectedDate} name={this.state.name} callback = {this.callbackSave.bind(this)} />;
+        case 4:
+        return <Step5 feelingValue = {this.state.feelingValue} name={this.state.name} callback = {this.callbackSave.bind(this)} />;
         default:
         return '';
     }
