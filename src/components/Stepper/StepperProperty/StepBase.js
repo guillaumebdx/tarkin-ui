@@ -12,6 +12,7 @@ import Step3                from './Step/Step3'
 import Step4                from './Step/Step4'
 import Step5                from './Step/Step5'
 import Step6                from './Step/Step6'
+import Step7                from './Step/Step7'
 import NextIcon             from '@material-ui/icons/NavigateNext';
 import BeforeIcon           from '@material-ui/icons/NavigateBefore';
 import SaveIcon             from '@material-ui/icons/Save';
@@ -54,20 +55,49 @@ class StepBase extends Component {
 
   };
 
-  getStepContent = (stepIndex) => {
+    getStepContent = (stepIndex) => {
     switch (stepIndex) {
         case 0:
-        return <Step1 value={this.state.name} callback = {this.callbackSave.bind(this)} /> ;
+        return <Step1 
+                    value    = {this.state.name} 
+                    callback = {this.callbackSave.bind(this)} 
+                /> ;
         case 1:
-        return <Step2 amount={this.state.amount} callback = {this.callbackSave.bind(this)} />;
+        return <Step2 
+                    amount   = {this.state.amount} 
+                    callback = {this.callbackSave.bind(this)} 
+                />;
         case 2:
-        return <Step3 rate={this.state.rate} name={this.state.name} callback = {this.callbackSave.bind(this)} />;
+        return <Step3 
+                    rate     = {this.state.rate} 
+                    name     = {this.state.name} 
+                    callback = {this.callbackSave.bind(this)} 
+                />;
         case 3:
-        return <Step4 selectedDate={this.state.selectedDate} name={this.state.name} callback = {this.callbackSave.bind(this)} />;
+        return <Step4 
+                    selectedDate = {this.state.selectedDate} 
+                    name         = {this.state.name} 
+                    callback     = {this.callbackSave.bind(this)} 
+                />;
         case 4:
-        return <Step5 feelingValue = {this.state.feelingValue} name={this.state.name} callback = {this.callbackSave.bind(this)} />;
+        return <Step5 
+                    feelingValue = {this.state.feelingValue} 
+                    name         = {this.state.name} 
+                    callback     = {this.callbackSave.bind(this)}   
+                />;
         case 5:
-        return <Step6 propertyType = {this.state.propertyType} name={this.state.name} callback = {this.callbackSave.bind(this)} />;
+        return <Step6 
+                    propertyType = {this.state.propertyType} 
+                    name         = {this.state.name} 
+                    callback     = {this.callbackSave.bind(this)} 
+                />;
+        case 6:
+        return <Step7 
+                    financialId  = {this.state.financialId} 
+                    realEstateId = {this.state.realEstateId} 
+                    propertyType = {this.state.propertyType} 
+                    callback     = {this.callbackSave.bind(this)}  
+                />;
         default:
         return '';
     }
