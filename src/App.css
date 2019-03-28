@@ -138,3 +138,6 @@ body {
     padding-bottom: 25px;
     margin-right: auto;
 }
+.stepContent {
+	min-height: 200px;
+}

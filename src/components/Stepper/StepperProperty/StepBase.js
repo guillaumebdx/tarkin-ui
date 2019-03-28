@@ -13,6 +13,7 @@ import Step4                from './Step/Step4'
 import Step5                from './Step/Step5'
 import Step6                from './Step/Step6'
 import Step7                from './Step/Step7'
+import Step8                from './Step/Step8'
 import NextIcon             from '@material-ui/icons/NavigateNext';
 import BeforeIcon           from '@material-ui/icons/NavigateBefore';
 import SaveIcon             from '@material-ui/icons/Save';
@@ -98,6 +99,13 @@ class StepBase extends Component {
                     propertyType = {this.state.propertyType} 
                     callback     = {this.callbackSave.bind(this)}  
                 />;
+        case 7:
+        return <Step8
+                persons       = {this.props.persons}
+                callback      = {this.callbackSave.bind(this)}  
+                propertyOwner = {this.state.propertyOwner}
+                acquirementTypeId = {this.state.acquirementTypeId}
+                />
         default:
         return '';
     }
@@ -125,6 +133,9 @@ class StepBase extends Component {
       }
       if (key === "propertyType" && value === "checkedFinancial") {
           this.replaceStep("Bien financier", 6)
+      }
+      if (key === 'financialId' || key === "realEstateId") {
+            this.replaceStep("Acquis par", 7);
       }
       }.bind(this));
   }
@@ -157,7 +168,7 @@ class StepBase extends Component {
             nbSteps          = {this.state.stepNames.length}
          />
          } 
-        <div>
+        <div className = "stepContainer">
           {this.state.activeStep === steps.length ? (
             <div>
               <Typography className={classes.instructions}>Votre bien est enregistré !</Typography>

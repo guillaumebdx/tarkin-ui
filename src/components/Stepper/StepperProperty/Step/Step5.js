@@ -25,7 +25,7 @@ class Step5 extends Component
     render()
     {
         return (
-            <div className="center">
+            <div className="center stepContent">
                 <Typography variant='title'>
                     A quel point aimez vous {this.props.name} ?
                 </Typography>

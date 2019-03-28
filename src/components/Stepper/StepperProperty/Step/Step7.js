@@ -87,7 +87,7 @@ class Step7 extends Component
 			);
 		}
         return (
-            <div className="center">
+            <div className="center stepContent">
                 <Typography variant='title'>
                 Type de {this.props.propertyType === "checkedFinancial" ? ' placement' : ' bien immobilier'}
                 </Typography>

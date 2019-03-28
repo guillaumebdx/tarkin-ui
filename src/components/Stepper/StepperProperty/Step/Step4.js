@@ -33,7 +33,7 @@ class Step4 extends Component
     render()
     {
         return (
-            <div className="center">
+            <div className="center stepContent">
                 <Typography variant='title'>
                     A quelle date avez vous acquis {this.props.name} ?
                 </Typography>

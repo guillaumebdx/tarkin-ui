@@ -32,7 +32,7 @@ class Step6 extends Component
     render()
     {
         return (
-            <div className="center">
+            <div className="center stepContent">
                 <Typography variant='title'>
                     {this.props.name} est-il de l'immobilier ou du financier ?
                 </Typography>

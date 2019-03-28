@@ -30,7 +30,7 @@ class Step3 extends Component
     render()
     {
         return (
-            <div className="center">
+            <div className="center stepContent">
                 <Typography variant='title'>
                     Quel est le rendement de {this.props.name} ?
                 </Typography>

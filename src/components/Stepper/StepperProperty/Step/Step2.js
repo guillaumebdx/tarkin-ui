@@ -30,7 +30,7 @@ class Step2 extends Component
     render()
     {
         return (
-            <div className="center">
+            <div className="center stepContent">
                 <Typography variant='title'>
                     A combien estimez-vous votre bien ?
                 </Typography>

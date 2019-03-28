@@ -277,6 +277,7 @@ class App extends Component {
             <StepperProperty
                 open         = {this.state.stepperPropertyOpen} 
                 callback     = {this.closeStepperProperty.bind(this)}
+                persons      = {this.state.physicalPersons}
             />
 	        </div>
 	        

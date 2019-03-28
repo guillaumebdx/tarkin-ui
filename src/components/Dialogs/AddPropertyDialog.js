@@ -180,7 +180,6 @@ class AddPropertyDialog extends Component
 			  }
 			  let propertyOwner = this.state.propertyOwner
 			  if(this.state.propertyOwner === "0" || typeof this.state.propertyOwner === "undefined") {
-				  console.log(this.props.persons)
 				  this.props.persons.forEach(function (value) {
 					  if (value.cradle === true) {
 						  propertyOwner = value.id;

@@ -28,7 +28,7 @@ class Step1 extends Component
     render()
     {
         return (
-            <div className="center">
+            <div className="center stepContent">
                 <Typography variant='title'>
                 Donnez un nom à votre bien
                 </Typography>
