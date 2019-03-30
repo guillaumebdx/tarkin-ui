@@ -18,6 +18,7 @@ import NextIcon             from '@material-ui/icons/NavigateNext';
 import BeforeIcon           from '@material-ui/icons/NavigateBefore';
 import SaveIcon             from '@material-ui/icons/Save';
 import MobileStepper        from '../MobileStepper'
+const dateFormat = require('dateformat');
 
 const styles = theme => ({
   root: {
@@ -48,7 +49,6 @@ class StepBase extends Component {
       'Type de bien',
       
     ],
-    isFinancial       : false,
     isRealEstate      : false,
     selectedDate      : new Date(),
     feelingValue      : 5,
@@ -123,6 +123,63 @@ class StepBase extends Component {
     this.setState(state => ({
       activeStep: state.activeStep + 1,
     }));
+  };
+
+  handleSave = (e) => {
+    this.setState(state => ({
+      activeStep: state.activeStep + 1,
+    }));
+    if (this.state.acquirementTypeId === "0" || typeof this.state.acquirementTypeId === "undefined") {
+        let lawPosition = "";
+        this.props.persons.forEach(function(value) {
+            if (value.cradle === true) {
+                lawPosition = value.law_position;
+            }
+        })
+        if (lawPosition === "common-community") {
+            return this.setState({isErrorAcquirementType: true})
+        }
+        
+    }
+    let propertyType = '';
+    if (this.state.propertyType === "checkedFinancial") {
+        propertyType = this.state.financialId;
+    } else {
+        propertyType = this.state.realEstateId;
+    }
+    let propertyOwner = this.state.propertyOwner
+    if(this.state.propertyOwner === "0" || typeof this.state.propertyOwner === "undefined") {
+        this.props.persons.forEach(function (value) {
+            if (value.cradle === true) {
+                propertyOwner = value.id;
+            }
+        })
+    }
+
+    let AddPropertyData = 
+        {
+            personId          : propertyOwner,
+            name              : this.state.name,
+            value             : this.state.amount,
+            returnRate        : this.state.rate === null ? 0 : this.state.rate,
+            propertyTypeId    : propertyType,
+            acquirementTypeId : this.state.acquirementTypeId,
+            acquirementDate   : dateFormat(this.state.selectedDate, "isoDateTime"),
+            feelingValue      : this.state.feelingValue,
+            
+        }
+    const request = async () => {
+        await fetch('http://tarkin.harari.io/api/new-property', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(AddPropertyData)
+        });
+        this.props.callbackSave()
+    };
+    request();
   };
 
   handleBack = () => {
@@ -212,8 +269,8 @@ class StepBase extends Component {
                 >
                   <BeforeIcon />
                 </Button>
-                <Button variant="contained" color="primary" onClick={this.handleNext} className={"plusButton"} disabled = {disabledArrow}>
-                  {activeStep === steps.length - 1 ? <SaveIcon /> : <NextIcon />}
+                <Button variant="contained" color="primary" onClick={activeStep === 7 ? this.handleSave : this.handleNext} className={"plusButton"} disabled = {disabledArrow} >
+                  {activeStep === 7 ? <SaveIcon /> : <NextIcon />}
                 </Button>
               </div>
              }

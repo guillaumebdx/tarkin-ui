@@ -56,7 +56,7 @@ class StepperProperty extends Component
                         </Toolbar>
                 </AppBar>
                 <DialogContent key="Content">
-                    <StepBase persons = {this.props.persons} />
+                    <StepBase persons = {this.props.persons} callbackSave = {this.handleClose.bind(this)} />
                 </DialogContent>
             </Dialog>
         )
