@@ -250,6 +250,14 @@ class StepBase extends Component {
             callbackStepNext = {this.handleNext.bind(this)} 
             callbackStepBack = {this.handleBack.bind(this)} 
             nbSteps          = {this.state.stepNames.length}
+            name             = {this.state.name}
+            amount           = {this.state.amount}
+            rate             = {this.state.rate}
+            propertyType     = {this.state.propertyType}
+            financialId      = {this.state.financialId}
+            realEstateId     = {this.state.realEstateId}
+            propertyOwner    = {this.state.propertyOwner}
+
          />
          } 
         <div className = "stepContainer">

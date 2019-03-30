@@ -15,7 +15,7 @@ const styles = {
 
 class ProgressMobileStepper extends React.Component {
   state = {
-    activeStep: 0,
+    activeStep        : 0,
   };
 
   handleNext = () => {
@@ -33,8 +33,27 @@ class ProgressMobileStepper extends React.Component {
   };
 
   render() {
-    const { classes, theme, nbSteps } = this.props;
-
+    const {classes, theme, nbSteps } = this.props;
+    const { activeStep }             = this.state;
+    let disabledArrow    = false;
+    if (activeStep === 0 && this.props.name === '' ) {
+        disabledArrow = true;
+    }
+    if (activeStep === 1 && this.props.amount === '') {
+        disabledArrow = true;
+    }
+    if (activeStep === 2 && this.props.rate === '') {
+        disabledArrow = true;
+    }
+    if (activeStep === 5 && this.props.propertyType === '') {
+        disabledArrow = true;
+    }
+    if (activeStep === 6 && (this.props.financialId === '' && this.props.realEstateId === '')) {
+        disabledArrow = true;
+    }
+    if (activeStep === 7 && (this.props.propertyOwner === '')) {
+        disabledArrow = true;
+    }
     return (
       <MobileStepper
         variant="progress"
@@ -43,8 +62,8 @@ class ProgressMobileStepper extends React.Component {
         activeStep={this.state.activeStep}
         className={classes.root}
         nextButton={
-          <Button size="small" onClick={this.handleNext} disabled={this.state.activeStep === nbSteps - 1}>
-          {this.state.activeStep >= nbSteps - 2 ? "Sauvegarder" : "Suivant" }
+          <Button size="small" onClick={this.handleNext} disabled={disabledArrow}>
+          {this.state.activeStep === 7 ? "Sauvegarder" : "Suivant" }
             {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
           </Button>
         }
