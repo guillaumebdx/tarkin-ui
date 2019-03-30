@@ -50,7 +50,28 @@ class Step8 extends Component
 		if (spouses.length > 1) {
 			spouse2   = spouses[1].first_name
 			idSpouse2 = spouses[1].id
+        }
+        let isSingle = true;
+        if (spouses.length === 2) {
+            isSingle = false;
+        }
+
+        let displayOwner = false;
+		if (isSingle === false) {
+			displayOwner = true;
 		}
+
+		let lawPosition = "";
+		this.props.persons.forEach(function(value) {
+			if (value.cradle === true) {
+				lawPosition = value.law_position;
+			}
+		})
+		let displayAcquirementType = false;
+		if (displayOwner === true && lawPosition === "common-community" && !isSingle) {
+			displayAcquirementType = true;
+        }
+
 		const OwnerListCommonMarriage = [
 			{
 				id   : idSpouse1,
@@ -127,7 +148,7 @@ class Step8 extends Component
                     <PropertyOwner />
                 </div>
                 <div>    
-                    <AcquirementTypeList /> 
+                   {displayAcquirementType && <AcquirementTypeList /> }
 		        </div>
             </div>
         )

@@ -48,11 +48,19 @@ class StepBase extends Component {
       'Type de bien',
       
     ],
-    isFinancial  : false,
-    isRealEstate : false,
-    selectedDate : new Date(),
-    feelingValue : 5,
-    propertyType : '',
+    isFinancial       : false,
+    isRealEstate      : false,
+    selectedDate      : new Date(),
+    feelingValue      : 5,
+    propertyType      : '',
+    name              : '',
+    amount            : '',
+    rate              : '',
+    propertyType      : '',
+    financialId       : '',
+    realEstateId      : '',
+    propertyOwner     : '',
+    acquirementTypeId : '',
 
   };
 
@@ -111,7 +119,7 @@ class StepBase extends Component {
     }
   }
 
-  handleNext = () => {
+  handleNext = (e) => {
     this.setState(state => ({
       activeStep: state.activeStep + 1,
     }));
@@ -150,6 +158,25 @@ class StepBase extends Component {
     const { classes }    = this.props;
     const steps          = this.state.stepNames;
     const { activeStep } = this.state;
+    let disabledArrow    = false;
+    if (activeStep === 0 && this.state.name === '' ) {
+        disabledArrow = true;
+    }
+    if (activeStep === 1 && this.state.amount === '') {
+        disabledArrow = true;
+    }
+    if (activeStep === 2 && this.state.rate === '') {
+        disabledArrow = true;
+    }
+    if (activeStep === 5 && this.state.propertyType === '') {
+        disabledArrow = true;
+    }
+    if (activeStep === 6 && (this.state.financialId === '' && this.state.realEstateId === '')) {
+        disabledArrow = true;
+    }
+    if (activeStep === 7 && (this.state.propertyOwner === '')) {
+        disabledArrow = true;
+    }
 
     return (
       <div className={classes.root}>
@@ -185,8 +212,8 @@ class StepBase extends Component {
                 >
                   <BeforeIcon />
                 </Button>
-                <Button variant="contained" color="primary" onClick={this.handleNext} className={"plusButton"}>
-                  {activeStep === steps.length - 1 ? <SaveIcon /> : <NextIcon/>}
+                <Button variant="contained" color="primary" onClick={this.handleNext} className={"plusButton"} disabled = {disabledArrow}>
+                  {activeStep === steps.length - 1 ? <SaveIcon /> : <NextIcon />}
                 </Button>
               </div>
              }
