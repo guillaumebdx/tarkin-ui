@@ -17,7 +17,7 @@ import Step8                from './Step/Step8'
 import NextIcon             from '@material-ui/icons/NavigateNext';
 import BeforeIcon           from '@material-ui/icons/NavigateBefore';
 import SaveIcon             from '@material-ui/icons/Save';
-import MobileStepper        from '../MobileStepper'
+import ProgressMobileStepper        from '../ProgressMobileStepper'
 const dateFormat = require('dateformat');
 
 const styles = theme => ({
@@ -246,9 +246,10 @@ class StepBase extends Component {
           ))}
         </Stepper>}
          {isMobile && 
-         <MobileStepper 
+         <ProgressMobileStepper 
             callbackStepNext = {this.handleNext.bind(this)} 
-            callbackStepBack = {this.handleBack.bind(this)} 
+            callbackStepBack = {this.handleBack.bind(this)}
+            callbackSave     = {this.handleSave.bind(this)} 
             nbSteps          = {this.state.stepNames.length}
             name             = {this.state.name}
             amount           = {this.state.amount}
@@ -257,6 +258,7 @@ class StepBase extends Component {
             financialId      = {this.state.financialId}
             realEstateId     = {this.state.realEstateId}
             propertyOwner    = {this.state.propertyOwner}
+            persons          = {this.props.persons}
 
          />
          } 

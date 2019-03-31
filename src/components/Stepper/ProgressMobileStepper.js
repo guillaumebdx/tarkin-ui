@@ -5,6 +5,7 @@ import MobileStepper from '@material-ui/core/MobileStepper';
 import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+const dateFormat = require('dateformat');
 
 const styles = {
   root: {
@@ -24,6 +25,10 @@ class ProgressMobileStepper extends React.Component {
     }));
     this.props.callbackStepNext();
   };
+
+  handleSave = (e) => {
+    this.props.callbackSave()
+   };
 
   handleBack = () => {
     this.setState(state => ({
@@ -62,7 +67,7 @@ class ProgressMobileStepper extends React.Component {
         activeStep={this.state.activeStep}
         className={classes.root}
         nextButton={
-          <Button size="small" onClick={this.handleNext} disabled={disabledArrow}>
+          <Button size="small" onClick={this.state.activeStep === 7 ? this.handleSave : this.handleNext} disabled={disabledArrow}>
           {this.state.activeStep === 7 ? "Sauvegarder" : "Suivant" }
             {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
           </Button>
