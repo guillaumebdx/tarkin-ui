@@ -65,6 +65,9 @@ class RecipeReviewCard extends React.Component {
          if (e.currentTarget.dataset.id === "2" && e.currentTarget.dataset.context === "physicalPerson") {
             this.props.callback("modalListfamily");
          }
+         if (e.currentTarget.dataset.id === "3" && e.currentTarget.dataset.context === "physicalPerson") {
+            this.props.callback("stepperPhysicalPerson");
+         }
 	     this.setState({ anchorEl: null });
 	  };
 

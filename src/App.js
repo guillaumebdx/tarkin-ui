@@ -16,6 +16,7 @@ import DemoDialog                  from './components/Dialogs/DemoDialog';
 import RadarCollapse               from './components/Collapse/RadarCollapse';
 import InheritCollapse             from './components/Collapse/InheritCollapse';
 import StepperProperty             from './components/Stepper/StepperProperty/StepperProperty';
+import StepperPhysicalPerson       from './components/Stepper/StepperPhysicalPerson/StepperPhysicalPerson';
 
 
 class App extends Component {
@@ -34,6 +35,7 @@ class App extends Component {
 				familyListDialogIsOpen    : false,
                 demoDialogisOpen          : false,
                 stepperPropertyOpen       : false,
+                stepperPhysicalPersonOpen : false,
 				successionValue           : 50,
 		    	fiscalityValue 			  : 50, 
 		    	fiscalityIFIValue    	  : 50,
@@ -96,8 +98,6 @@ class App extends Component {
         if (context === "stepperProperty") {
             this.setState({stepperPropertyOpen : true})
         }
-		
-		
 	}
 	openPhysicalPersonModal(context) 
 	{
@@ -106,7 +106,10 @@ class App extends Component {
 		}
 		if (context === "modalAddPhysicalPerson") {
 			this.setState({physicalPersonModalIsOpen : true})
-		}
+        }
+        if (context === "stepperPhysicalPerson") {
+            this.setState({stepperPhysicalPersonOpen : true})
+        }
 	}
 	closePhysicalPersonModal() 
 	{
@@ -132,7 +135,11 @@ class App extends Component {
     closeStepperProperty() 
 	{
 		this.setState({stepperPropertyOpen : false})
-	}
+    }
+    closeStepperPhysicalPerson()
+    {
+        this.setState({stepperPhysicalPersonOpen : false})
+    }
 	updateSumProperties(data) 
 	{
 		let url = new URL(window.location.href);
@@ -277,6 +284,11 @@ class App extends Component {
             <StepperProperty
                 open         = {this.state.stepperPropertyOpen} 
                 callback     = {this.closeStepperProperty.bind(this)}
+                persons      = {this.state.physicalPersons}
+            />
+            <StepperPhysicalPerson
+                open         = {this.state.stepperPhysicalPersonOpen} 
+                callback     = {this.closeStepperPhysicalPerson.bind(this)}
                 persons      = {this.state.physicalPersons}
             />
 	        </div>

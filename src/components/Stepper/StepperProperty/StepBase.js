@@ -17,7 +17,7 @@ import Step8                from './Step/Step8'
 import NextIcon             from '@material-ui/icons/NavigateNext';
 import BeforeIcon           from '@material-ui/icons/NavigateBefore';
 import SaveIcon             from '@material-ui/icons/Save';
-import ProgressMobileStepper        from '../ProgressMobileStepper'
+import ProgressMobileStepper from './ProgressMobileStepper'
 const dateFormat = require('dateformat');
 
 const styles = theme => ({
